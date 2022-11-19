@@ -24,6 +24,8 @@
     "@typescript-eslint/no-floating-promises": "error",
     "@typescript-eslint/no-misused-promises": "error",
     "require-await": "warn",
-    "react-native/no-unused-styles": 2
+    "react-native/no-unused-styles": "error",
+    "react-native/no-single-element-style-arrays": "error",
+    "react-native/sort-styles": "warn"
   }
 }
