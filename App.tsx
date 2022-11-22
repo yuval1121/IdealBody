@@ -2,7 +2,6 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
 
 export default function App() {
-  const t = 7;
   return (
     <PaperProvider>
       <View style={styles.container}>
