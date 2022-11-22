@@ -4,6 +4,11 @@
     "node": true,
     "react-native/react-native": true
   },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
@@ -26,6 +31,7 @@
     "require-await": "warn",
     "react-native/no-unused-styles": "error",
     "react-native/no-single-element-style-arrays": "error",
-    "react-native/sort-styles": "warn"
+    "react-native/sort-styles": "warn",
+    "semi": "error"
   }
 }
