@@ -1,8 +1,10 @@
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { Button, Card, TextInput, useTheme } from 'react-native-paper';
+import { useAuthStore } from '../store/authStore';
 
 const LoginScreen = () => {
   const theme = useTheme();
+  const setIsLoggedIn = useAuthStore(state => state.setIsLoggedIn);
 
   return (
     <SafeAreaView
@@ -25,7 +27,11 @@ const LoginScreen = () => {
             <Button uppercase={false} style={styles.cardButton}>
               Forgot email/password
             </Button>
-            <Button mode="contained" style={styles.cardButton}>
+            <Button
+              onPress={() => setIsLoggedIn(true)}
+              mode="contained"
+              style={styles.cardButton}
+            >
               Login
             </Button>
             <Button style={styles.cardButton}>Register</Button>

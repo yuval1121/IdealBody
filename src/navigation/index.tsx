@@ -4,16 +4,19 @@ import {
   CombinedDarkTheme,
   CombinedDefaultTheme,
 } from '../constants/combinedThemes';
+import { useAuthStore } from '../store/authStore';
 import AuthStack from './AuthStack';
+import BottomTabs from './BottomTabs';
 
 const RootNavigator = () => {
   const colorScheme = useColorScheme();
+  const isLoggedIn = useAuthStore(state => state.isLoggedIn);
 
   return (
     <NavigationContainer
       theme={colorScheme === 'dark' ? CombinedDarkTheme : CombinedDefaultTheme}
     >
-      <AuthStack />
+      {isLoggedIn ? <BottomTabs /> : <AuthStack />}
     </NavigationContainer>
   );
 };
