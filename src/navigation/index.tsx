@@ -3,8 +3,8 @@ import { useColorScheme } from 'react-native';
 import {
   CombinedDarkTheme,
   CombinedDefaultTheme,
-} from '../../constants/combinedThemes';
-import HomeStackNavigator from './HomeStackNavigator';
+} from '../constants/combinedThemes';
+import AuthStack from './AuthStack';
 
 const RootNavigator = () => {
   const colorScheme = useColorScheme();
@@ -13,7 +13,7 @@ const RootNavigator = () => {
     <NavigationContainer
       theme={colorScheme === 'dark' ? CombinedDarkTheme : CombinedDefaultTheme}
     >
-      <HomeStackNavigator />
+      <AuthStack />
     </NavigationContainer>
   );
 };

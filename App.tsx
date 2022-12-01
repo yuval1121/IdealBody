@@ -5,7 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import {
   CombinedDarkTheme,
   CombinedDefaultTheme,
-} from './constants/combinedThemes';
+} from './src/constants/combinedThemes';
 
 export default function App() {
   const colorScheme = useColorScheme();
