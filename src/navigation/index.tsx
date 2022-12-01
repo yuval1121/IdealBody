@@ -4,11 +4,11 @@ import {
   CombinedDarkTheme,
   CombinedDefaultTheme,
 } from '../../constants/combinedThemes';
-
 import HomeStackNavigator from './HomeStackNavigator';
 
 const RootNavigator = () => {
   const colorScheme = useColorScheme();
+
   return (
     <NavigationContainer
       theme={colorScheme === 'dark' ? CombinedDarkTheme : CombinedDefaultTheme}
