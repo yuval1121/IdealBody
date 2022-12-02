@@ -1,4 +1,3 @@
-import { useNavigation, useRoute } from '@react-navigation/native';
 import { SafeAreaView, Text, View, StyleSheet } from 'react-native';
 
 const TestScreen = () => {

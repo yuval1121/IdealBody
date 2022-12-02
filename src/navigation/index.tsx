@@ -1,6 +1,4 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { useColorScheme } from 'react-native';
-import { useTheme } from 'react-native-paper';
 import {
   CombinedDarkTheme,
   CombinedDefaultTheme,
