@@ -1,9 +1,12 @@
+import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { Button, Card, TextInput, useTheme } from 'react-native-paper';
+import { LoginScreenProp } from '../navigation/types';
 import { useAuthStore } from '../store/authStore';
 
 const LoginScreen = () => {
   const theme = useTheme();
+  const navigation = useNavigation<LoginScreenProp>();
   const setIsLoggedIn = useAuthStore(state => state.setIsLoggedIn);
 
   return (
@@ -34,7 +37,12 @@ const LoginScreen = () => {
             >
               Login
             </Button>
-            <Button style={styles.cardButton}>Register</Button>
+            <Button
+              onPress={() => navigation.navigate('Register')}
+              style={styles.cardButton}
+            >
+              Register
+            </Button>
           </Card.Content>
         </Card>
       </View>
