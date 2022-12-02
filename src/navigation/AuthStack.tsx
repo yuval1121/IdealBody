@@ -6,6 +6,7 @@ import { AuthStackNavigatorParamList } from './types';
 const Stack = createNativeStackNavigator<AuthStackNavigatorParamList>();
 
 const AuthStack = () => {
+  // Screen only needs SafeAreaView if headerShown is set to false
   return (
     <Stack.Navigator>
       <Stack.Screen

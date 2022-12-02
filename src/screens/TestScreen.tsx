@@ -1,12 +1,10 @@
-import { SafeAreaView, Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 
 const TestScreen = () => {
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.container}>
-        <Text>Test</Text>
-      </View>
-    </SafeAreaView>
+    <View style={styles.container}>
+      <Text>Test</Text>
+    </View>
   );
 };
 
