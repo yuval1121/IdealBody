@@ -30,6 +30,7 @@ const LoginScreen = () => {
               onPress={() => setIsLoggedIn(true)}
               mode="contained"
               style={styles.cardButton}
+              testID="loginButton"
             >
               Login
             </Button>
