@@ -1,8 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
-import { Button, Card, TextInput, useTheme } from 'react-native-paper';
+import { Button, Card, useTheme } from 'react-native-paper';
 import { LoginScreenProp } from '../navigation/types';
 import { useAuthStore } from '../store/authStore';
+import { TextInput } from '../components/Form/TextInput';
 
 const LoginScreen = () => {
   const theme = useTheme();
@@ -15,18 +16,13 @@ const LoginScreen = () => {
     >
       <View style={styles.view}>
         <Card>
-          <Card.Title title="IdealBody"></Card.Title>
           <Card.Content>
             <TextInput
-              style={styles.textInput}
+              autoCapitalize="none"
               label="Email"
               keyboardType="email-address"
-            ></TextInput>
-            <TextInput
-              style={styles.textInput}
-              label="Password"
-              secureTextEntry={true}
-            ></TextInput>
+            />
+            <TextInput label="Password" secureTextEntry={true} />
             <Button uppercase={false} style={styles.cardButton}>
               Forgot email/password
             </Button>
@@ -57,13 +53,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'row',
+    // flexDirection: 'row',
   },
   view: {
     width: '80%',
-  },
-  textInput: {
-    backgroundColor: 'transparent',
   },
   cardButton: {
     margin: 2,

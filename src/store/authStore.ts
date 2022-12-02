@@ -1,9 +1,9 @@
 import create from 'zustand';
 
-type State = {
+interface State {
   isLoggedIn: boolean;
   setIsLoggedIn: (isLoggedIn: boolean) => void;
-};
+}
 
 export const useAuthStore = create<State>(set => ({
   isLoggedIn: false,
