@@ -11,7 +11,7 @@
     "react-native-paper": "^5.0.0-rc.10",
     "react-native-safe-area-context": "4.4.1",
     "react-native-screens": "3.18.0",
-    "react-native-web": "0.18.7",
+    "react-native-web": "~0.18.9",
     "zustand": "4.1.4"
   },
   "devDependencies": {
@@ -37,7 +37,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "prepare": "husky install",
-    "pre-commit": "lint-staged"
+    "pre-commit": "lint-staged",
+    "react-devtools": "npx react-devtools"
   },
   "version": "1.0.0",
   "private": true,
