@@ -8,16 +8,14 @@ import {
 } from './src/constants/combinedThemes';
 
 export default function App() {
-  const colorScheme = useColorScheme();
+  const isDarkMode = useColorScheme() === 'dark';
 
   return (
     <>
       <PaperProvider
-        theme={
-          colorScheme === 'dark' ? CombinedDarkTheme : CombinedDefaultTheme
-        }
+        theme={isDarkMode ? CombinedDarkTheme : CombinedDefaultTheme}
       >
-        <RootNavigator />
+        <RootNavigator isDarkMode={isDarkMode} />
         <StatusBar style="auto" />
       </PaperProvider>
     </>

@@ -1,5 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { useColorScheme } from 'react-native';
+import { useTheme } from 'react-native-paper';
 import {
   CombinedDarkTheme,
   CombinedDefaultTheme,
@@ -8,13 +9,16 @@ import { useAuthStore } from '../store/authStore';
 import AuthStack from './AuthStack';
 import BottomTabs from './BottomTabs';
 
-const RootNavigator = () => {
-  const colorScheme = useColorScheme();
+interface Props {
+  isDarkMode: boolean;
+}
+
+const RootNavigator = ({ isDarkMode }: Props) => {
   const isLoggedIn = useAuthStore(state => state.isLoggedIn);
 
   return (
     <NavigationContainer
-      theme={colorScheme === 'dark' ? CombinedDarkTheme : CombinedDefaultTheme}
+      theme={isDarkMode ? CombinedDarkTheme : CombinedDefaultTheme}
     >
       {isLoggedIn ? <BottomTabs /> : <AuthStack />}
     </NavigationContainer>
