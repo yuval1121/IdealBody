@@ -27,7 +27,15 @@
   "plugins": ["react", "react-native", "@typescript-eslint"],
   "rules": {
     "@typescript-eslint/no-floating-promises": "error",
-    "@typescript-eslint/no-misused-promises": "error",
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      {
+        "checksVoidReturn": {
+          "attributes": false,
+          "arguments": false
+        }
+      }
+    ],
     "require-await": "warn",
     "react-native/no-unused-styles": "error",
     "react-native/no-single-element-style-arrays": "error",
