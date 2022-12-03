@@ -1,36 +1,54 @@
-import { ScrollView, StyleSheet, View } from 'react-native';
-import { Button, useTheme } from 'react-native-paper';
+import { StyleSheet, View } from 'react-native';
+import { Button, Card, useTheme } from 'react-native-paper';
 import { TextInput } from '../components/Form/TextInput';
 import { TextInput as TextInputPaper } from 'react-native-paper';
+import { useState } from 'react';
 
 const RegisterScreen = () => {
   const { colors } = useTheme();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const handleShowPassword = () => {
+    setShowPassword(curr => !curr);
+  };
+
+  const handleShowConfirmPassword = () => {
+    setShowConfirmPassword(curr => !curr);
+  };
+
   return (
-    <ScrollView style={styles.outerContainer}>
-      <View style={styles.innerContainer}>
+    <View style={[styles.outerContainer, { backgroundColor: colors.primary }]}>
+      <Card style={styles.card}>
         <TextInput label="Name" />
         <TextInput
-          autoCapitalize="none"
           label="Email"
+          autoCapitalize="none"
           keyboardType="email-address"
         />
         <TextInput
           label="Password"
-          secureTextEntry={true}
+          autoCapitalize="none"
+          secureTextEntry={!showPassword}
           right={
             <TextInputPaper.Icon
-              icon="eye-off-outline"
+              icon={showPassword ? 'eye' : 'eye-off-outline'}
               iconColor={colors.primary}
+              forceTextInputFocus={false}
+              onPress={handleShowPassword}
             />
           }
         />
         <TextInput
           label="Confirm Password"
-          secureTextEntry={true}
+          autoCapitalize="none"
+          secureTextEntry={!showConfirmPassword}
           right={
             <TextInputPaper.Icon
-              icon="eye-off-outline"
+              icon={showConfirmPassword ? 'eye' : 'eye-off-outline'}
               iconColor={colors.primary}
+              forceTextInputFocus={false}
+              onPress={handleShowConfirmPassword}
             />
           }
         />
@@ -38,8 +56,8 @@ const RegisterScreen = () => {
         <Button style={styles.button} mode="contained">
           Register
         </Button>
-      </View>
-    </ScrollView>
+      </Card>
+    </View>
   );
 };
 
@@ -48,9 +66,11 @@ export default RegisterScreen;
 const styles = StyleSheet.create({
   outerContainer: {
     flex: 1,
-  },
-  innerContainer: {
     justifyContent: 'center',
+    alignItems: 'center',
+  },
+  card: {
+    width: '80%',
   },
   button: {
     width: '80%',

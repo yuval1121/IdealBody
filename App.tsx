@@ -16,7 +16,7 @@ export default function App() {
         theme={isDarkMode ? CombinedDarkTheme : CombinedDefaultTheme}
       >
         <RootNavigator isDarkMode={isDarkMode} />
-        <StatusBar style="auto" />
+        <StatusBar style="inverted" />
       </PaperProvider>
     </>
   );
