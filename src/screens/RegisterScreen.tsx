@@ -1,17 +1,12 @@
-import { StyleSheet, View, Text } from 'react-native';
-import { Button, Card, useTheme, Tooltip } from 'react-native-paper';
+import { StyleSheet, View } from 'react-native';
+import { Button, Card, useTheme } from 'react-native-paper';
 import { TextInput } from '../components/Form/TextInput';
 import { TextInput as TextInputPaper } from 'react-native-paper';
 import { useState } from 'react';
 import { createUser } from '../api/auth/auth';
-import {
-  useForm,
-  Controller,
-  SubmitHandler,
-  FieldValues,
-} from 'react-hook-form';
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 
-interface Inputs extends FieldValues {
+interface Inputs {
   name: string;
   email: string;
   password: string;
@@ -21,7 +16,7 @@ const RegisterScreen = () => {
   const { colors } = useTheme();
   const [showPassword, setShowPassword] = useState(false);
 
-  const { control, handleSubmit, formState } = useForm<Inputs>();
+  const { control, handleSubmit } = useForm<Inputs>();
   const handleShowPassword = () => {
     setShowPassword(curr => !curr);
   };
