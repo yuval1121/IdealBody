@@ -6,7 +6,6 @@
     "@react-navigation/native-stack": "6.9.2",
     "expo": "47.0.8",
     "expo-status-bar": "~1.4.2",
-    "ky": "0.32.2",
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "react-hook-form": "7.40.0",
@@ -48,7 +47,7 @@
     "prepare": "husky install",
     "pre-commit": "lint-staged",
     "react-devtools": "react-devtools",
-    "expo-upgrade":"expo-cli upgrade"
+    "expo-upgrade": "expo-cli upgrade"
   },
   "version": "1.0.0",
   "private": true,

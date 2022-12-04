@@ -10,7 +10,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { TextInput as TextInputPaper } from 'react-native-paper';
 import { useState } from 'react';
 import { signUserIn } from '../api/auth/auth';
-import { HTTPError } from 'ky';
 
 const schema = z.object({
   email: z.string().email('Email required'),
@@ -36,9 +35,10 @@ const LoginScreen = () => {
   const handleSignIn: SubmitHandler<Inputs> = async ({ email, password }) => {
     try {
       const res = await signUserIn(email, password);
+      setIsLoggedIn(true);
     } catch (error) {
-      if (error instanceof HTTPError) {
-        console.log(error);
+      if (error instanceof Error) {
+        console.log(error.message);
       }
     }
   };
