@@ -5,18 +5,24 @@ import { TextInput as TextInputPaper } from 'react-native-paper';
 import { useState } from 'react';
 import { createUser } from '../api/auth/auth';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
 
-interface Inputs {
-  name: string;
-  email: string;
-  password: string;
-}
+const schema = z.object({
+  name: z.string().min(1),
+  email: z.string().email('Email required'),
+  password: z.string().min(6),
+});
+
+type Inputs = z.infer<typeof schema>;
 
 const RegisterScreen = () => {
   const { colors } = useTheme();
   const [showPassword, setShowPassword] = useState(false);
 
-  const { control, handleSubmit } = useForm<Inputs>();
+  const { control, handleSubmit } = useForm<Inputs>({
+    resolver: zodResolver(schema),
+  });
   const handleShowPassword = () => {
     setShowPassword(curr => !curr);
   };
@@ -25,8 +31,7 @@ const RegisterScreen = () => {
     email,
     password,
   }) => {
-    const res = await createUser(email, password);
-    console.log(res);
+    await createUser(email, password);
   };
 
   return (
@@ -35,7 +40,7 @@ const RegisterScreen = () => {
         <Controller
           control={control}
           name="name"
-          rules={{ required: 'Email is required' }}
+          rules={{ required: 'Name is required' }}
           render={({ field, fieldState }) => (
             <TextInput
               error={fieldState.error ? true : false}
