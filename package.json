@@ -47,7 +47,8 @@
     "test": "jest",
     "prepare": "husky install",
     "pre-commit": "lint-staged",
-    "react-devtools": "npx react-devtools"
+    "react-devtools": "react-devtools",
+    "expo-upgrade":"expo-cli upgrade"
   },
   "version": "1.0.0",
   "private": true,
