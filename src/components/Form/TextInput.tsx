@@ -13,6 +13,6 @@ export const TextInput = ({ style, ...props }: CustomTextInputProps) => {
 
 const styles = StyleSheet.create({
   textInput: {
-    // backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
 });

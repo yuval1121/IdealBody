@@ -27,10 +27,7 @@ const RegisterScreen = () => {
     setShowPassword(curr => !curr);
   };
 
-  const registerHandler: SubmitHandler<Inputs> = async ({
-    email,
-    password,
-  }) => {
+  const handleRegister: SubmitHandler<Inputs> = async ({ email, password }) => {
     await createUser(email, password);
   };
 
@@ -40,7 +37,6 @@ const RegisterScreen = () => {
         <Controller
           control={control}
           name="name"
-          rules={{ required: 'Name is required' }}
           render={({ field, fieldState }) => (
             <TextInput
               error={fieldState.error ? true : false}
@@ -64,7 +60,6 @@ const RegisterScreen = () => {
         <Controller
           control={control}
           name="email"
-          rules={{ required: 'Email is required' }}
           render={({ field, fieldState }) => (
             <TextInput
               error={fieldState.error ? true : false}
@@ -90,7 +85,6 @@ const RegisterScreen = () => {
         <Controller
           control={control}
           name="password"
-          rules={{ required: 'Password is required', minLength: 6 }}
           render={({ field, fieldState }) => (
             <TextInput
               error={fieldState.error ? true : false}
@@ -113,7 +107,7 @@ const RegisterScreen = () => {
         />
 
         <Button
-          onPress={handleSubmit(registerHandler)}
+          onPress={handleSubmit(handleRegister)}
           style={styles.button}
           mode="contained"
         >

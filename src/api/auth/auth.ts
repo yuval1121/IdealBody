@@ -32,6 +32,6 @@ export const signUserIn = async (email: string, password: string) => {
       }
     )
     .json();
-
+  console.log(response);
   return response;
 };
