@@ -3,7 +3,6 @@ const API_KEY = 'AIzaSyDtcJQzQwGGOMjhFTt6E1iELJoUnnv_CLA';
 interface userDataRequest {
   email: string;
   password: string;
-  returnSecureToken: boolean;
 }
 
 interface userDataResponse {
@@ -38,7 +37,7 @@ export const createUser = async ({ email, password }: userDataRequest) => {
   return data;
 };
 
-export const signUserIn = async (email: string, password: string) => {
+export const signUserIn = async ({ email, password }: userDataRequest) => {
   const response = await fetch(
     `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`,
     {

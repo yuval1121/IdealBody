@@ -34,7 +34,7 @@ const LoginScreen = () => {
 
   const handleSignIn: SubmitHandler<Inputs> = async ({ email, password }) => {
     try {
-      const res = await signUserIn(email, password);
+      const res = await signUserIn({ email, password });
       setIsLoggedIn(true);
     } catch (error) {
       if (error instanceof Error) {

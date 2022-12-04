@@ -7,6 +7,8 @@ import { createUser } from '../api/auth/auth';
 import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { useNavigation } from '@react-navigation/native';
+import { RegisterScreenProp } from '../navigation/types';
 
 const schema = z.object({
   name: z.string().min(1),
@@ -19,6 +21,7 @@ type Inputs = z.infer<typeof schema>;
 const RegisterScreen = () => {
   const { colors } = useTheme();
   const [showPassword, setShowPassword] = useState(false);
+  const navigator = useNavigation<RegisterScreenProp>();
 
   const { control, handleSubmit } = useForm<Inputs>({
     resolver: zodResolver(schema),
@@ -28,7 +31,12 @@ const RegisterScreen = () => {
   };
 
   const handleRegister: SubmitHandler<Inputs> = async ({ email, password }) => {
-    await createUser(email, password);
+    try {
+      await createUser({ email, password });
+      navigator.navigate('Login');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
