@@ -40,7 +40,7 @@ const RegisterScreen = () => {
   };
 
   return (
-    <View style={[styles.outerContainer, { backgroundColor: colors.primary }]}>
+    <View style={styles.outerContainer}>
       <Card style={styles.card}>
         <Controller
           control={control}

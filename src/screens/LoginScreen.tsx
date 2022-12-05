@@ -44,7 +44,7 @@ const LoginScreen = () => {
   };
 
   return (
-    <SafeAreaView style={[styles.content, { backgroundColor: colors.primary }]}>
+    <SafeAreaView style={styles.content}>
       <View style={styles.view}>
         <Card>
           <Card.Content>
