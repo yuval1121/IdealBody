@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const API_KEY = 'AIzaSyDtcJQzQwGGOMjhFTt6E1iELJoUnnv_CLA';
 
 interface userDataRequest {
@@ -15,48 +17,29 @@ interface userDataResponse {
 }
 
 export const createUser = async ({ email, password }: userDataRequest) => {
-  const response = await fetch(
+  const response = await axios.post<userDataResponse>(
     `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`,
     {
-      method: 'post',
-      credentials: 'include',
-      body: JSON.stringify({
-        email,
-        password,
-        returnSecureToken: true,
-      }),
+      email,
+      password,
+      returnSecureToken: true,
     }
   );
 
-  if (!response.ok) {
-    const { error } = await response.json();
-    throw new Error(error.message);
-  }
-
-  const data: userDataResponse = await response.json();
+  const { data } = response;
   return data;
 };
 
 export const signUserIn = async ({ email, password }: userDataRequest) => {
-  const response = await fetch(
+  const response = await axios.post<userDataResponse>(
     `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`,
     {
-      method: 'post',
-      credentials: 'include',
-      body: JSON.stringify({
-        email,
-        password,
-        returnSecureToken: true,
-      }),
+      email,
+      password,
+      returnSecureToken: true,
     }
   );
 
-  if (!response.ok) {
-    const { error } = await response.json();
-    throw new Error(error.message);
-  }
-
-  const data: userDataResponse = await response.json();
-  console.log(data);
+  const { data } = response;
   return data;
 };
