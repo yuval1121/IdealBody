@@ -1,5 +1,6 @@
 {
   "expo": {
+    "jsEngine": "hermes",
     "name": "IdealBody",
     "slug": "IdealBody",
     "version": "1.0.0",

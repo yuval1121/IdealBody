@@ -1,10 +1,10 @@
-import LoginScreen from '../LoginScreen';
 import { fireEvent, render } from '@testing-library/react-native';
+import TestScreen from '../TestScreen';
 
-describe('Login Screen', () => {
+describe('Test Screen', () => {
   it('test something', () => {
-    const page = render(<LoginScreen />);
-    const loginButton = page.getByTestId('loginButton');
+    const page = render(<TestScreen />);
+    const loginButton = page.getByTestId('txt');
     fireEvent.press(loginButton);
     expect(loginButton).toBeTruthy();
   });

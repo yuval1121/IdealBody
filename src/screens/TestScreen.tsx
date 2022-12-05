@@ -3,7 +3,7 @@ import { Text, View, StyleSheet } from 'react-native';
 const TestScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>Test</Text>
+      <Text testID="txt">Test</Text>
     </View>
   );
 };
