@@ -1,4 +1,4 @@
-import { useColorScheme } from 'react-native';
+import { I18nManager, useColorScheme } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
 import RootNavigator from './src/navigation';
 import { StatusBar } from 'expo-status-bar';
@@ -9,6 +9,7 @@ import {
 
 export default function App() {
   const isDarkMode = useColorScheme() === 'dark';
+  I18nManager.allowRTL(false);
 
   return (
     <>

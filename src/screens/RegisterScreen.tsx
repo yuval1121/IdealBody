@@ -23,7 +23,7 @@ const RegisterScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigator = useNavigation<RegisterScreenProp>();
 
-  const { control, handleSubmit } = useForm<Inputs>({
+  const { control, handleSubmit, getValues } = useForm<Inputs>({
     resolver: zodResolver(schema),
   });
   const handleShowPassword = () => {
