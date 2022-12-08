@@ -4,7 +4,7 @@ import { TextInput } from '../components/Form/TextInput';
 import { TextInput as TextInputPaper } from 'react-native-paper';
 import { useState } from 'react';
 import { createUser } from '../api/auth/auth';
-import { useForm, Controller, SubmitHandler } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useNavigation } from '@react-navigation/native';
@@ -23,9 +23,10 @@ const RegisterScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigator = useNavigation<RegisterScreenProp>();
 
-  const { control, handleSubmit, getValues } = useForm<Inputs>({
+  const { control, handleSubmit, formState } = useForm<Inputs>({
     resolver: zodResolver(schema),
   });
+
   const handleShowPassword = () => {
     setShowPassword(curr => !curr);
   };
@@ -42,76 +43,38 @@ const RegisterScreen = () => {
   return (
     <View style={styles.outerContainer}>
       <Card style={styles.card}>
-        <Controller
-          control={control}
+        <TextInput
           name="name"
-          render={({ field, fieldState }) => (
-            <TextInput
-              error={fieldState.error ? true : false}
-              label="Name"
-              value={field.value}
-              onChangeText={field.onChange}
-              onBlur={field.onBlur}
-              right={
-                fieldState.error && (
-                  <TextInputPaper.Icon
-                    icon="alert-circle"
-                    iconColor={colors.error}
-                    forceTextInputFocus={false}
-                  />
-                )
-              }
-            />
-          )}
+          control={control}
+          label="Name"
+          errorIcon="alert-circle"
         />
 
-        <Controller
-          control={control}
+        <TextInput
           name="email"
-          render={({ field, fieldState }) => (
-            <TextInput
-              error={fieldState.error ? true : false}
-              label="Email"
-              autoCapitalize="none"
-              keyboardType="email-address"
-              value={field.value}
-              onChangeText={field.onChange}
-              onBlur={field.onBlur}
-              right={
-                fieldState.error && (
-                  <TextInputPaper.Icon
-                    icon="alert-circle"
-                    iconColor={colors.error}
-                    forceTextInputFocus={false}
-                  />
-                )
-              }
-            />
-          )}
+          control={control}
+          label="Email"
+          autoCapitalize="none"
+          keyboardType="email-address"
+          errorIcon="alert-circle"
         />
 
-        <Controller
-          control={control}
+        <TextInput
           name="password"
-          render={({ field, fieldState }) => (
-            <TextInput
-              error={fieldState.error ? true : false}
-              label="Password"
-              autoCapitalize="none"
-              secureTextEntry={!showPassword}
-              value={field.value}
-              onChangeText={field.onChange}
-              onBlur={field.onBlur}
-              right={
-                <TextInputPaper.Icon
-                  icon={showPassword ? 'eye' : 'eye-off-outline'}
-                  iconColor={fieldState.error ? colors.error : colors.primary}
-                  forceTextInputFocus={false}
-                  onPress={handleShowPassword}
-                />
+          control={control}
+          label="Password"
+          autoCapitalize="none"
+          secureTextEntry={!showPassword}
+          right={
+            <TextInputPaper.Icon
+              icon={showPassword ? 'eye' : 'eye-off-outline'}
+              iconColor={
+                formState.errors.password ? colors.error : colors.primary
               }
+              forceTextInputFocus={false}
+              onPress={handleShowPassword}
             />
-          )}
+          }
         />
 
         <Button
