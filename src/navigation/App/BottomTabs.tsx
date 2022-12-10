@@ -4,7 +4,7 @@ import TestScreen from '../../screens/TestScreen';
 
 const Tab = createBottomTabNavigator();
 
-export const BottomTabs = () => {
+const BottomTabs = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen name="Test" component={TestScreen} />
@@ -12,3 +12,5 @@ export const BottomTabs = () => {
     </Tab.Navigator>
   );
 };
+
+export default BottomTabs;

@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { Button, Card, useTheme } from 'react-native-paper';
-import { LoginScreenProp } from '../navigation/AuthStack/types';
+import { LoginScreenProp } from '../navigation/Auth/types';
 import { useAuthStore } from '../store/authStore';
 import { TextInput } from '../components/Form/TextInput';
 import { z } from 'zod';

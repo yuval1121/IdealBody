@@ -5,10 +5,10 @@ import { AuthStackNavigatorParamList } from './types';
 
 const Stack = createNativeStackNavigator<AuthStackNavigatorParamList>();
 
-export const AuthStack = () => {
+const AuthStack = () => {
   // Screen only needs SafeAreaView if headerShown is set to false
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ animation: 'slide_from_right' }}>
       <Stack.Screen
         options={{ headerShown: false }}
         name="Login"
@@ -18,3 +18,5 @@ export const AuthStack = () => {
     </Stack.Navigator>
   );
 };
+
+export default AuthStack;
