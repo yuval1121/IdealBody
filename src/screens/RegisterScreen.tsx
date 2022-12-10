@@ -3,12 +3,12 @@ import { Button, Card, useTheme } from 'react-native-paper';
 import { TextInput } from '../components/Form/TextInput';
 import { TextInput as TextInputPaper } from 'react-native-paper';
 import { useState } from 'react';
-import { createUser } from '../api/auth/auth';
+import { createUser } from '../api/auth';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useNavigation } from '@react-navigation/native';
-import { RegisterScreenProp } from '../navigation/types';
+import { RegisterScreenProp } from '../navigation/AuthStack/types';
 
 const schema = z.object({
   name: z.string().min(1),

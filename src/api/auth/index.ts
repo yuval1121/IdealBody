@@ -1,24 +1,10 @@
 import axios from 'axios';
-
-const API_KEY = 'AIzaSyDtcJQzQwGGOMjhFTt6E1iELJoUnnv_CLA';
-
-interface userDataRequest {
-  email: string;
-  password: string;
-}
-
-interface userDataResponse {
-  idToken: string;
-  email: string;
-  refreshToken: string;
-  expiresIn: string;
-  localid: string;
-  registered: boolean;
-}
+import { userDataRequest, userDataResponse } from './types';
+import { API_TOKEN } from '@env';
 
 export const createUser = async ({ email, password }: userDataRequest) => {
   const response = await axios.post<userDataResponse>(
-    `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`,
+    `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_TOKEN}`,
     {
       email,
       password,
@@ -32,7 +18,7 @@ export const createUser = async ({ email, password }: userDataRequest) => {
 
 export const signUserIn = async ({ email, password }: userDataRequest) => {
   const response = await axios.post<userDataResponse>(
-    `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`,
+    `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_TOKEN}`,
     {
       email,
       password,

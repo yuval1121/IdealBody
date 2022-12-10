@@ -1,10 +1,10 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen from '../screens/HomeScreen';
-import TestScreen from '../screens/TestScreen';
+import HomeScreen from '../../screens/HomeScreen';
+import TestScreen from '../../screens/TestScreen';
 
 const Tab = createBottomTabNavigator();
 
-const BottomTabs = () => {
+export const BottomTabs = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen name="Test" component={TestScreen} />
@@ -12,5 +12,3 @@ const BottomTabs = () => {
     </Tab.Navigator>
   );
 };
-
-export default BottomTabs;

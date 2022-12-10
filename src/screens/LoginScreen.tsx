@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { Button, Card, useTheme } from 'react-native-paper';
-import { LoginScreenProp } from '../navigation/types';
+import { LoginScreenProp } from '../navigation/AuthStack/types';
 import { useAuthStore } from '../store/authStore';
 import { TextInput } from '../components/Form/TextInput';
 import { z } from 'zod';
@@ -9,7 +9,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { TextInput as TextInputPaper } from 'react-native-paper';
 import { useState } from 'react';
-import { signUserIn } from '../api/auth/auth';
+import { signUserIn } from '../api/auth';
 
 const schema = z.object({
   email: z.string().email('Email required'),

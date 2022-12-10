@@ -1,11 +1,11 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import LoginScreen from '../screens/LoginScreen';
-import RegisterScreen from '../screens/RegisterScreen';
+import LoginScreen from '../../screens/LoginScreen';
+import RegisterScreen from '../../screens/RegisterScreen';
 import { AuthStackNavigatorParamList } from './types';
 
 const Stack = createNativeStackNavigator<AuthStackNavigatorParamList>();
 
-const AuthStack = () => {
+export const AuthStack = () => {
   // Screen only needs SafeAreaView if headerShown is set to false
   return (
     <Stack.Navigator>
@@ -18,5 +18,3 @@ const AuthStack = () => {
     </Stack.Navigator>
   );
 };
-
-export default AuthStack;
