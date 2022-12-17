@@ -9,8 +9,8 @@ import {
 } from 'react-native-paper';
 
 const { LightTheme, DarkTheme } = adaptNavigationTheme({
-  light: NavigationDefaultTheme,
-  dark: NavigationDarkTheme,
+  reactNavigationLight: NavigationDefaultTheme,
+  reactNavigationDark: NavigationDarkTheme,
 });
 
 export const CombinedDefaultTheme = {
