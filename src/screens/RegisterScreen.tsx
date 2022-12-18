@@ -41,7 +41,7 @@ const RegisterScreen = () => {
   };
 
   return (
-    <View style={styles.outerContainer}>
+    <View style={styles.container}>
       <Card style={styles.card}>
         <TextInput
           name="name"
@@ -92,7 +92,7 @@ const RegisterScreen = () => {
 export default RegisterScreen;
 
 const styles = StyleSheet.create({
-  outerContainer: {
+  container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
