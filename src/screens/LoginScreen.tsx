@@ -22,7 +22,7 @@ const LoginScreen = () => {
   const { colors } = useTheme();
   const [showPassword, setShowPassword] = useState(false);
   const navigation = useNavigation<LoginScreenProp>();
-  const setIsLoggedIn = useAuthStore(state => state.setIsLoggedIn);
+  const authenticate = useAuthStore(state => state.authenticate);
 
   const { control, handleSubmit, formState } = useForm<Inputs>({
     resolver: zodResolver(schema),
@@ -35,7 +35,7 @@ const LoginScreen = () => {
   const handleSignIn: SubmitHandler<Inputs> = async ({ email, password }) => {
     try {
       const res = await signUserIn({ email, password });
-      setIsLoggedIn(true);
+      authenticate(res.idToken);
     } catch (error) {
       if (error instanceof Error) {
         console.log(error.message);
