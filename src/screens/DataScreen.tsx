@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet, useWindowDimensions, View } from 'react-native';
 import { Button, Modal, Portal, Text } from 'react-native-paper';
-import { useWindowDimensions } from 'react-native';
 
-const TestScreen = () => {
+const DataScreen = () => {
   const [visible, setVisible] = useState(false);
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
@@ -12,6 +11,7 @@ const TestScreen = () => {
 
   const saveHandler = () => {
     console.log('saving modal...');
+    hideModal();
   };
 
   return (
@@ -35,7 +35,7 @@ const TestScreen = () => {
   );
 };
 
-export default TestScreen;
+export default DataScreen;
 
 // const getStyles = (height: number, width: number) => StyleSheet.create({
 //     container: {

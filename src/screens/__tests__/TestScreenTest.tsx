@@ -1,9 +1,9 @@
 import { fireEvent, render } from '@testing-library/react-native';
-import TestScreen from '../TestScreen';
+import DataScreen from '../DataScreen';
 
 describe('Test Screen', () => {
   it('test something', () => {
-    const page = render(<TestScreen />);
+    const page = render(<DataScreen />);
     const loginButton = page.getByTestId('txt');
     fireEvent.press(loginButton);
     expect(loginButton).toBeTruthy();
