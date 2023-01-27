@@ -1,6 +1,6 @@
 {
   "*.{js,jsx,ts,tsx}": [
-    "tsc --noEmit --skipLibCheck --jsx react",
+    "tsc --noEmit --skipLibCheck --jsx react-native",
     "eslint . --fix",
     "prettier --write ."
   ]
