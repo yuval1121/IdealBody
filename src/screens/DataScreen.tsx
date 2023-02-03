@@ -1,6 +1,13 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
 import { Button, Modal, Portal, Text } from 'react-native-paper';
+import { z } from 'zod';
+
+const schema = z.object({});
+
+type Inputs = z.infer<typeof schema>;
 
 const DataScreen = () => {
   const [visible, setVisible] = useState(false);
@@ -8,6 +15,9 @@ const DataScreen = () => {
   const hideModal = () => setVisible(false);
   const { height, width } = useWindowDimensions();
   const innerModalDim = { height: height / 3, width: width / 1.5 };
+  const { control, handleSubmit } = useForm<Inputs>({
+    resolver: zodResolver(schema),
+  });
 
   const saveHandler = () => {
     console.log('saving modal...');
