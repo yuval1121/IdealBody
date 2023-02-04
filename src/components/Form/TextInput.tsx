@@ -4,18 +4,26 @@ import {
   useTheme,
 } from 'react-native-paper';
 import { StyleSheet } from 'react-native';
-import { MakePropertyOptional } from '../../utils/type/typeUtils';
+import {
+  MakePropertyOptional,
+  MakePropertyRequired,
+} from '../../utils/type/typeUtils';
 import {
   FieldPath,
   FieldValues,
   useController,
   UseControllerProps,
-  Control,
 } from 'react-hook-form';
 
 type CustomTextInputProps = MakePropertyOptional<TextInputProps, 'theme'> & {
   errorIcon?: string;
 };
+
+type CustomUseControllerProps<
+  TFieldValues extends FieldValues,
+  TName extends FieldPath<TFieldValues>
+> = MakePropertyRequired<UseControllerProps<TFieldValues, TName>, 'control'> &
+  CustomTextInputProps;
 
 export const TextInput = <
   TFieldValues extends FieldValues = FieldValues,
@@ -28,8 +36,7 @@ export const TextInput = <
   shouldUnregister,
   errorIcon,
   ...props
-}: UseControllerProps<TFieldValues, TName> &
-  CustomTextInputProps & { control: Control<TFieldValues, TName> }) => {
+}: CustomUseControllerProps<TFieldValues, TName>) => {
   const { colors } = useTheme();
   const { field, fieldState } = useController({
     name,
