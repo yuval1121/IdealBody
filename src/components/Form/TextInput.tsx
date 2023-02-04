@@ -22,8 +22,7 @@ type CustomTextInputProps = MakePropertyOptional<TextInputProps, 'theme'> & {
 type CustomUseControllerProps<
   TFieldValues extends FieldValues,
   TName extends FieldPath<TFieldValues>
-> = MakePropertyRequired<UseControllerProps<TFieldValues, TName>, 'control'> &
-  CustomTextInputProps;
+> = MakePropertyRequired<UseControllerProps<TFieldValues, TName>, 'control'>;
 
 export const TextInput = <
   TFieldValues extends FieldValues = FieldValues,
@@ -36,7 +35,7 @@ export const TextInput = <
   shouldUnregister,
   errorIcon,
   ...props
-}: CustomUseControllerProps<TFieldValues, TName>) => {
+}: CustomUseControllerProps<TFieldValues, TName> & CustomTextInputProps) => {
   const { colors } = useTheme();
   const { field, fieldState } = useController({
     name,
