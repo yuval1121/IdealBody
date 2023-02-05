@@ -4,8 +4,8 @@ import {
   CombinedDefaultTheme,
 } from '../constants/combinedThemes';
 import { useAuthStore } from '../store/authStore';
-import AuthStack from './Auth/AuthStack';
 import BottomTabs from './App/BottomTabs';
+import AuthStack from './Auth/AuthStack';
 
 interface Props {
   isDarkMode: boolean;

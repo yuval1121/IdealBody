@@ -1,19 +1,19 @@
 import {
-  TextInput as TextInputPaper,
-  TextInputProps,
-  useTheme,
-} from 'react-native-paper';
-import { StyleSheet } from 'react-native';
-import {
-  MakePropertyOptional,
-  MakePropertyRequired,
-} from '../../utils/type/typeUtils';
-import {
   FieldPath,
   FieldValues,
   useController,
   UseControllerProps,
 } from 'react-hook-form';
+import { StyleSheet } from 'react-native';
+import {
+  TextInput as TextInputPaper,
+  TextInputProps,
+  useTheme,
+} from 'react-native-paper';
+import {
+  MakePropertyOptional,
+  MakePropertyRequired,
+} from '../../utils/type/typeUtils';
 
 type CustomTextInputProps = MakePropertyOptional<TextInputProps, 'theme'> & {
   errorIcon?: string;

@@ -1,6 +1,6 @@
+import { API_TOKEN } from '@env';
 import axios from 'axios';
 import { userDataRequest, userDataResponse } from './types';
-import { API_TOKEN } from '@env';
 
 export const createUser = async ({ email, password }: userDataRequest) => {
   const response = await axios.post<userDataResponse>(

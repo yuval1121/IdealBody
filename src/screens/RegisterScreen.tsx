@@ -1,13 +1,17 @@
-import { StyleSheet, View } from 'react-native';
-import { Button, Card, useTheme } from 'react-native-paper';
-import { TextInput } from '../components/Form/TextInput';
-import { TextInput as TextInputPaper } from 'react-native-paper';
-import { useState } from 'react';
-import { createUser } from '../api/auth';
-import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { useNavigation } from '@react-navigation/native';
+import { useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { StyleSheet, View } from 'react-native';
+import {
+  Button,
+  Card,
+  TextInput as TextInputPaper,
+  useTheme,
+} from 'react-native-paper';
+import { z } from 'zod';
+import { createUser } from '../api/auth';
+import { TextInput } from '../components/Form/TextInput';
 import { RegisterScreenProp } from '../navigation/Auth/types';
 
 const schema = z.object({

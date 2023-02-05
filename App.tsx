@@ -1,11 +1,11 @@
+import { StatusBar } from 'expo-status-bar';
 import { I18nManager, useColorScheme } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
-import RootNavigator from './src/navigation';
-import { StatusBar } from 'expo-status-bar';
 import {
   CombinedDarkTheme,
   CombinedDefaultTheme,
 } from './src/constants/combinedThemes';
+import RootNavigator from './src/navigation';
 
 export default function App() {
   const isDarkMode = useColorScheme() === 'dark';
