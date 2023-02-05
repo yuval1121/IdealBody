@@ -4,8 +4,13 @@ import { useForm } from 'react-hook-form';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
 import { Button, Modal, Portal, Text } from 'react-native-paper';
 import { z } from 'zod';
+import { TextInput } from '../components/Form/TextInput';
 
-const schema = z.object({});
+const schema = z.object({
+  weight: z.preprocess(arg => {
+    if (typeof arg === 'string') return parseFloat(arg);
+  }, z.number().min(10).max(300)),
+});
 
 type Inputs = z.infer<typeof schema>;
 
@@ -33,11 +38,13 @@ const DataScreen = () => {
           contentContainerStyle={[styles.innerModal, innerModalDim]}
           style={styles.outerModal}
         >
-          <Text>Test</Text>
+          <Text>Enter Current Weight</Text>
+          <TextInput name="weight" control={control} />
+          <Text>Enter Current Height</Text>
           <Button onPress={saveHandler}>Save</Button>
         </Modal>
       </Portal>
-      <Text testID="txt">Test</Text>
+      <Text>Test</Text>
       <Button mode="contained" onPress={showModal}>
         Add data
       </Button>
