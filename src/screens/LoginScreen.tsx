@@ -1,20 +1,25 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigation } from '@react-navigation/native';
+import { useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
-import { Button, Card, useTheme } from 'react-native-paper';
+import {
+  Button,
+  Card,
+  TextInput as TextInputPaper,
+  useTheme,
+} from 'react-native-paper';
+import { z } from 'zod';
+import { signUserIn } from '../api/auth';
+import { TextInput } from '../components/Form/TextInput';
 import { LoginScreenProp } from '../navigation/Auth/types';
 import { useAuthStore } from '../store/authStore';
-import { TextInput } from '../components/Form/TextInput';
-import { z } from 'zod';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { TextInput as TextInputPaper } from 'react-native-paper';
-import { useState } from 'react';
-import { signUserIn } from '../api/auth';
 
 const schema = z.object({
   email: z.string().email('Email required'),
   password: z.string().min(6),
 });
+//test
 
 type Inputs = z.infer<typeof schema>;
 
