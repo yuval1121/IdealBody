@@ -54,15 +54,6 @@ const DataScreen = () => {
 
 export default DataScreen;
 
-// const getStyles = (height: number, width: number) => StyleSheet.create({
-//     container: {
-//     alignItems: 'center',
-//     // backgroundColor: 'white',
-//     flex: 1,
-//     justifyContent: 'center',
-//   }
-// });
-
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
