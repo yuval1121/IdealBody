@@ -19,7 +19,6 @@ const schema = z.object({
   email: z.string().email('Email required'),
   password: z.string().min(6),
 });
-//test
 
 type Inputs = z.infer<typeof schema>;
 
