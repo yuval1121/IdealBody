@@ -1,12 +1,17 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
 import { Button, Modal, Portal, Text } from 'react-native-paper';
 import { z } from 'zod';
+import { addUserData } from '../api/data';
 import { TextInput } from '../components/Form/TextInput';
+import { useAuthStore } from '../store/authStore';
 
 const schema = z.object({
+  height: z.preprocess(arg => {
+    if (typeof arg === 'string') return parseFloat(arg);
+  }, z.number().min(0.5).max(2.5)),
   weight: z.preprocess(arg => {
     if (typeof arg === 'string') return parseFloat(arg);
   }, z.number().min(10).max(300)),
@@ -23,10 +28,20 @@ const DataScreen = () => {
   const { control, handleSubmit } = useForm<Inputs>({
     resolver: zodResolver(schema),
   });
+  const email = useAuthStore(state => state.email);
+  const token = useAuthStore(state => state.token);
 
-  const saveHandler = () => {
-    console.log('saving modal...');
-    hideModal();
+  const saveHandler: SubmitHandler<Inputs> = async ({ weight, height }) => {
+    try {
+      const res = await addUserData({ weight, height, email, token });
+      console.log(res);
+    } catch (e) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
+      console.log(e.response);
+    } finally {
+      hideModal();
+    }
   };
 
   return (
@@ -41,7 +56,8 @@ const DataScreen = () => {
           <Text>Enter Current Weight</Text>
           <TextInput name="weight" control={control} />
           <Text>Enter Current Height</Text>
-          <Button onPress={saveHandler}>Save</Button>
+          <TextInput name="height" control={control} />
+          <Button onPress={handleSubmit(saveHandler)}>Save</Button>
         </Modal>
       </Portal>
       <Text>Test</Text>
