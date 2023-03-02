@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { AxiosError } from 'axios';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
@@ -36,9 +37,9 @@ const DataScreen = () => {
       const res = await addUserData({ weight, height, email, token });
       console.log(res);
     } catch (e) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      //@ts-ignore
-      console.log(e.response);
+      if (e instanceof AxiosError) {
+        console.log(e.response);
+      }
     } finally {
       hideModal();
     }
