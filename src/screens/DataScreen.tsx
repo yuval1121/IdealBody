@@ -5,7 +5,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
 import { Button, Modal, Portal, Text } from 'react-native-paper';
 import { z } from 'zod';
-import { createUserData } from '../api/data';
+import { createUserData } from '../api/user';
 import { TextInput } from '../components/Form/TextInput';
 import { useAuthStore } from '../store/authStore';
 

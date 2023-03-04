@@ -56,7 +56,15 @@ export const updateUserData = async ({
       fields: {
         currWeight: { doubleValue: weight },
         currHeight: { doubleValue: height },
-        // BMIData: { arrayValue: [{ stringValue: 'Test' }] },
+        BMIData: {
+          arrayValue: {
+            values: [
+              {
+                doubleValue: 0,
+              },
+            ],
+          },
+        },
       },
     },
     {
