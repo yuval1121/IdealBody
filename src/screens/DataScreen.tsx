@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
-import { Button, Modal, Portal, Text } from 'react-native-paper';
+import { Button, Modal, Portal, Text, useTheme } from 'react-native-paper';
 import { z } from 'zod';
 import { updateUserData } from '../api/user';
 import { TextInput } from '../components/Form/TextInput';
@@ -23,7 +23,8 @@ const DataScreen = () => {
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
   const { height, width } = useWindowDimensions();
-  const innerModalDim = { height: height / 3, width: width / 1.5 };
+  const { colors } = useTheme();
+  const innerModalDim = { height: height / 4, width: width / 1.5 };
   const { control, handleSubmit } = useForm<Inputs>({
     resolver: zodResolver(schema),
   });
@@ -44,7 +45,11 @@ const DataScreen = () => {
         <Modal
           visible={visible}
           onDismiss={hideModal}
-          contentContainerStyle={[styles.innerModal, innerModalDim]}
+          contentContainerStyle={[
+            styles.innerModal,
+            innerModalDim,
+            { backgroundColor: colors.background },
+          ]}
           style={styles.outerModal}
         >
           <Text>Enter Current Weight</Text>
@@ -54,7 +59,6 @@ const DataScreen = () => {
           <Button onPress={handleSubmit(saveHandler)}>Save</Button>
         </Modal>
       </Portal>
-      <Text>Test</Text>
       <Button mode="contained" onPress={showModal}>
         Add data
       </Button>
@@ -67,7 +71,6 @@ export default DataScreen;
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    // backgroundColor: 'white',
     flex: 1,
     justifyContent: 'center',
   },
@@ -77,12 +80,6 @@ const styles = StyleSheet.create({
   },
   innerModal: {
     backgroundColor: 'white',
-    ustifyContent: 'flex-start',
+    justifyContent: 'flex-start',
   },
-  // text: {
-  //   textAlign: 'center',
-  // },
-  // confirmButton: {
-  //   marginTop: 'auto',
-  // },
 });

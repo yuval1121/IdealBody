@@ -18,7 +18,16 @@ const BottomTabs = () => {
           ),
         }}
       />
-      <Tab.Screen name="Test" component={DataScreen} />
+      <Tab.Screen
+        name="Test"
+        component={DataScreen}
+        options={{
+          tabBarLabel: 'Data',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="add" color={color} size={size} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 };

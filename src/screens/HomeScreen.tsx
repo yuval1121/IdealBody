@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { StyleSheet, View } from 'react-native';
-import { Button, Card, Text } from 'react-native-paper';
+import { Button, Card, HelperText, Text } from 'react-native-paper';
 import { z } from 'zod';
 import { TextInput } from '../components/Form/TextInput';
 
@@ -19,7 +19,7 @@ type Inputs = z.infer<typeof schema>;
 
 const HomeScreen = () => {
   const [BMI, setBMI] = useState<number | null>(null);
-  const { control, handleSubmit } = useForm<Inputs>({
+  const { control, handleSubmit, formState } = useForm<Inputs>({
     resolver: zodResolver(schema),
   });
 
@@ -37,6 +37,9 @@ const HomeScreen = () => {
           keyboardType="number-pad"
           errorIcon="alert-circle"
         />
+        <HelperText type="error" visible={Boolean(formState.errors.height)}>
+          Invalid height, Please enter your height in meters.
+        </HelperText>
 
         <TextInput
           name="weight"
@@ -45,6 +48,9 @@ const HomeScreen = () => {
           keyboardType="number-pad"
           errorIcon="alert-circle"
         />
+        <HelperText type="error" visible={Boolean(formState.errors.weight)}>
+          Invalid weight, Please enter your weight in kgs.
+        </HelperText>
 
         <Button
           onPress={handleSubmit(handleCalculateBMI)}
