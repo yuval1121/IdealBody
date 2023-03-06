@@ -38,12 +38,10 @@ const LoginScreen = () => {
 
   const handleSignIn: SubmitHandler<Inputs> = async ({ email, password }) => {
     try {
-      const res = await signUserIn({ email, password });
-      authenticate(res.idToken, res.email);
+      await signUserIn({ email, password });
+      authenticate();
     } catch (error) {
-      if (error instanceof Error) {
-        console.log(error.message);
-      }
+      console.log(error);
     }
   };
 

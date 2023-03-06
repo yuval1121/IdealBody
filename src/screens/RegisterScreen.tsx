@@ -11,6 +11,7 @@ import {
 } from 'react-native-paper';
 import { z } from 'zod';
 import { createUser } from '../api/auth';
+import { createUserData } from '../api/user';
 import { TextInput } from '../components/Form/TextInput';
 import { RegisterScreenProp } from '../navigation/Auth/types';
 
@@ -38,6 +39,7 @@ const RegisterScreen = () => {
   const handleRegister: SubmitHandler<Inputs> = async ({ email, password }) => {
     try {
       await createUser({ email, password });
+      await createUserData({ weight: 0, height: 0 });
       navigator.navigate('Login');
     } catch (error) {
       console.log(error);

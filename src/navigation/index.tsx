@@ -12,13 +12,13 @@ interface Props {
 }
 
 const RootNavigator = ({ isDarkMode }: Props) => {
-  const isLoggedIn = useAuthStore(state => state.isAuthenticated);
+  const isAuthenticated = useAuthStore(state => state.isAuthenticated);
 
   return (
     <NavigationContainer
       theme={isDarkMode ? CombinedDarkTheme : CombinedDefaultTheme}
     >
-      {isLoggedIn ? <BottomTabs /> : <AuthStack />}
+      {isAuthenticated ? <BottomTabs /> : <AuthStack />}
     </NavigationContainer>
   );
 };

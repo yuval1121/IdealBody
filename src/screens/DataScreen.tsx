@@ -5,9 +5,8 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
 import { Button, Modal, Portal, Text } from 'react-native-paper';
 import { z } from 'zod';
-import { createUser, getUser, updateUser } from '../api/user';
+import { updateUserData } from '../api/user';
 import { TextInput } from '../components/Form/TextInput';
-import { useAuthStore } from '../store/authStore';
 
 const schema = z.object({
   height: z.preprocess(arg => {
@@ -29,17 +28,12 @@ const DataScreen = () => {
   const { control, handleSubmit } = useForm<Inputs>({
     resolver: zodResolver(schema),
   });
-  const email = useAuthStore(state => state.email);
-  const token = useAuthStore(state => state.token);
 
   const saveHandler: SubmitHandler<Inputs> = async ({ weight, height }) => {
     try {
-      const res = await getUser();
-      console.log(res);
+      await updateUserData({ weight, height });
     } catch (e) {
-      if (e instanceof AxiosError) {
-        console.log(e.response);
-      }
+      console.log(e);
     } finally {
       hideModal();
     }

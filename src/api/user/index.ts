@@ -1,77 +1,47 @@
-import { PROJECT_ID } from '@env';
-import axios from 'axios';
-import { useAuthStore } from '../../store/authStore';
-import { createUserData, getUserData } from './types';
+import '@firebase/firestore';
+import {
+  arrayUnion,
+  doc,
+  getDoc,
+  serverTimestamp,
+  updateDoc,
+} from '@firebase/firestore';
+import { getAuth } from 'firebase/auth';
+import { setDoc } from 'firebase/firestore';
+import { db } from '../../utils/config/firebase';
+import { userData } from './types';
 
 export const getUser = async () => {
-  const email = useAuthStore.getState().email;
-  const token = useAuthStore.getState().token;
-  const response = await axios.get<getUserData>(
-    `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/users/${email}`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    }
-  );
-
-  const { data } = response;
-  return data;
+  const docRef = doc(db, 'users', 'c@c.com');
+  const docSnap = await getDoc(docRef);
+  return docSnap.data();
 };
 
-export const createUser = async ({ weight, height }: createUserData) => {
-  const email = useAuthStore.getState().email;
-  const token = useAuthStore.getState().token;
-  const response = await axios.post<createUserData>(
-    `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/users?documentId=${email}`,
-    {
-      fields: {
-        currWeight: { doubleValue: weight },
-        currHeight: { doubleValue: height },
-        // BMIData: { arrayValue: [{ stringValue: 'Test' }] },
-      },
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    }
-  );
+export const createUserData = async ({ weight, height }: userData) => {
+  const { currentUser } = getAuth();
 
-  const { data } = response;
-  return data;
+  if (currentUser) {
+    const docRef = doc(db, 'users', currentUser.uid);
+    await setDoc(docRef, {
+      currWeight: weight,
+      currHeight: height,
+      BMIData: [],
+    });
+  }
 };
 
-export const updateUser = async ({ weight, height }: createUserData) => {
-  const email = useAuthStore.getState().email;
-  const token = useAuthStore.getState().token;
-  const response = await axios.patch<createUserData>(
-    `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/users/${email}`,
-    {
-      fields: {
-        currWeight: { doubleValue: weight },
-        currHeight: { doubleValue: height },
-        BMIData: {
-          arrayUnion: {
-            values: [
-              {
-                doubleValue: 0,
-              },
-            ],
-          },
-        },
-      },
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    }
-  );
+export const updateUserData = async ({ weight, height }: userData) => {
+  const { currentUser } = getAuth();
 
-  const { data } = response;
-  return data;
+  if (currentUser) {
+    const userRef = doc(db, 'users', currentUser.uid);
+    await updateDoc(userRef, {
+      currWeight: weight,
+      currHeight: height,
+      BMIData: arrayUnion({
+        weight: weight,
+        timestamp: new Date(),
+      }),
+    });
+  }
 };
