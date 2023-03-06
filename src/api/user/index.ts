@@ -1,9 +1,12 @@
 import { PROJECT_ID } from '@env';
 import axios from 'axios';
-import { userData } from './types';
+import { useAuthStore } from '../../store/authStore';
+import { createUserData, getUserData } from './types';
 
-export const geteUserData = async ({ email, token }: userData) => {
-  const response = await axios.get<userData>(
+export const getUser = async () => {
+  const email = useAuthStore.getState().email;
+  const token = useAuthStore.getState().token;
+  const response = await axios.get<getUserData>(
     `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/users/${email}`,
     {
       headers: {
@@ -17,13 +20,10 @@ export const geteUserData = async ({ email, token }: userData) => {
   return data;
 };
 
-export const createUserData = async ({
-  weight,
-  height,
-  email,
-  token,
-}: userData) => {
-  const response = await axios.post<userData>(
+export const createUser = async ({ weight, height }: createUserData) => {
+  const email = useAuthStore.getState().email;
+  const token = useAuthStore.getState().token;
+  const response = await axios.post<createUserData>(
     `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/users?documentId=${email}`,
     {
       fields: {
@@ -44,20 +44,17 @@ export const createUserData = async ({
   return data;
 };
 
-export const updateUserData = async ({
-  weight,
-  height,
-  email,
-  token,
-}: userData) => {
-  const response = await axios.patch<userData>(
+export const updateUser = async ({ weight, height }: createUserData) => {
+  const email = useAuthStore.getState().email;
+  const token = useAuthStore.getState().token;
+  const response = await axios.patch<createUserData>(
     `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents/users/${email}`,
     {
       fields: {
         currWeight: { doubleValue: weight },
         currHeight: { doubleValue: height },
         BMIData: {
-          arrayValue: {
+          arrayUnion: {
             values: [
               {
                 doubleValue: 0,

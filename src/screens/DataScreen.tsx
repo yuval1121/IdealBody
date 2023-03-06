@@ -5,7 +5,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
 import { Button, Modal, Portal, Text } from 'react-native-paper';
 import { z } from 'zod';
-import { createUserData } from '../api/user';
+import { createUser, getUser, updateUser } from '../api/user';
 import { TextInput } from '../components/Form/TextInput';
 import { useAuthStore } from '../store/authStore';
 
@@ -34,7 +34,7 @@ const DataScreen = () => {
 
   const saveHandler: SubmitHandler<Inputs> = async ({ weight, height }) => {
     try {
-      const res = await createUserData({ weight, height, email, token });
+      const res = await getUser();
       console.log(res);
     } catch (e) {
       if (e instanceof AxiosError) {
