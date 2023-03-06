@@ -1,5 +1,4 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { AxiosError } from 'axios';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
