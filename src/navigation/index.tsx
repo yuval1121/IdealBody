@@ -7,6 +7,7 @@ import {
   CombinedDarkTheme,
   CombinedDefaultTheme,
 } from '../constants/combinedThemes';
+import useAuth from '../hooks/useAuth';
 import BottomTabs from './App/BottomTabs';
 import AuthStack from './Auth/AuthStack';
 
@@ -15,23 +16,7 @@ interface Props {
 }
 
 const RootNavigator = ({ isDarkMode }: Props) => {
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [initializing, setInitalizing] = useState(true);
-  const auth = getAuth();
-
-  useEffect(() => {
-    const subscriber = onAuthStateChanged(auth, user => {
-      if (user) {
-        setLoggedIn(true);
-      } else {
-        setLoggedIn(false);
-      }
-      setInitalizing(false);
-    });
-
-    return subscriber;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const { loggedIn, initializing } = useAuth();
 
   if (initializing)
     return (
