@@ -1,6 +1,4 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { Text } from 'react-native-paper';
 import {
