@@ -3,7 +3,7 @@ import { arrayUnion, doc, getDoc, updateDoc } from '@firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { setDoc } from 'firebase/firestore';
 import { db } from '../../utils/config/firebase';
-import { userData, userModelData } from './types';
+import { UserData, UserModelData } from './types';
 
 export const getUser = async () => {
   const { currentUser } = getAuth();
@@ -11,11 +11,11 @@ export const getUser = async () => {
   if (currentUser) {
     const docRef = doc(db, 'users', currentUser.uid);
     const docSnap = await getDoc(docRef);
-    return docSnap.data() as userModelData;
+    return docSnap.data() as UserModelData;
   }
 };
 
-export const createUserData = async ({ weight, height }: userData) => {
+export const createUserData = async ({ weight, height }: UserData) => {
   const { currentUser } = getAuth();
 
   if (currentUser) {
@@ -28,7 +28,7 @@ export const createUserData = async ({ weight, height }: userData) => {
   }
 };
 
-export const updateUserData = async ({ weight, height }: userData) => {
+export const updateUserData = async ({ weight, height }: UserData) => {
   const { currentUser } = getAuth();
 
   if (currentUser) {

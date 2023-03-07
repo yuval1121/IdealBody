@@ -1,11 +1,14 @@
-type BMIData = [Date, number];
-export interface userModelData {
+export interface BMIData {
+  timestamp: Date;
+  weight: number;
+}
+export interface UserModelData {
   currWeight: number;
   currHeight: number;
   BMIData: BMIData[];
 }
 
-export interface userData {
+export interface UserData {
   weight: number;
   height: number;
 }
