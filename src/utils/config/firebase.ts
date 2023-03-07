@@ -5,8 +5,12 @@ import {
   MESSAGINGSENDERID,
   PROJECT_ID,
 } from '@env';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FirebaseOptions, initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
+import {
+  getReactNativePersistence,
+  initializeAuth,
+} from 'firebase/auth/react-native';
 import { getFirestore } from 'firebase/firestore';
 
 // Optionally import the services that you want to use
@@ -30,4 +34,6 @@ const firebaseConfig: FirebaseOptions = {
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
-export const auth = getAuth(app);
+export const auth = initializeAuth(app, {
+  persistence: getReactNativePersistence(AsyncStorage),
+});

@@ -22,7 +22,7 @@ const BottomTabs = () => {
         name="Test"
         component={DataScreen}
         options={{
-          tabBarLabel: 'Data',
+          tabBarLabel: 'Add',
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="add" color={color} size={size} />
           ),

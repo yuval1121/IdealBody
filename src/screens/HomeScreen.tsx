@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { getAuth } from 'firebase/auth';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { StyleSheet, View } from 'react-native';
@@ -58,6 +59,17 @@ const HomeScreen = () => {
           mode="contained"
         >
           Calculate
+        </Button>
+
+        <Button
+          onPress={async () => {
+            const auth = getAuth();
+            await auth.signOut();
+          }}
+          style={styles.button}
+          mode="contained"
+        >
+          Sign Out
         </Button>
 
         {BMI !== null && <Text style={styles.text}>BMI is {BMI}</Text>}
