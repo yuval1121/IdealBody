@@ -1,8 +1,8 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
-import { Button } from 'react-native-paper';
+import { View } from 'react-native';
+import { Text } from 'react-native-paper';
 import {
   CombinedDarkTheme,
   CombinedDefaultTheme,
@@ -35,10 +35,8 @@ const RootNavigator = ({ isDarkMode }: Props) => {
 
   if (isInItializing)
     return (
-      <View style={{ flex: 1 }}>
-        <Button style={{ justifyContent: 'center', alignItems: 'center' }}>
-          Loading...
-        </Button>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Loading...</Text>
       </View>
     );
 
