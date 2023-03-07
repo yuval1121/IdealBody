@@ -16,7 +16,7 @@ interface Props {
 
 const RootNavigator = ({ isDarkMode }: Props) => {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [isInItializing, setIsInitalizing] = useState(true);
+  const [initializing, setInitalizing] = useState(true);
   const auth = getAuth();
 
   useEffect(() => {
@@ -26,14 +26,14 @@ const RootNavigator = ({ isDarkMode }: Props) => {
       } else {
         setLoggedIn(false);
       }
-      setIsInitalizing(false);
+      setInitalizing(false);
     });
 
     return subscriber;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (isInItializing)
+  if (initializing)
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text>Loading...</Text>
