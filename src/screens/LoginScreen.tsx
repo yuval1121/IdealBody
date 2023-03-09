@@ -13,7 +13,6 @@ import { z } from 'zod';
 import { signUserIn } from '../api/auth';
 import { TextInput } from '../components/Form/TextInput';
 import { LoginScreenProp } from '../navigation/Auth/types';
-import { useAuthStore } from '../store/authStore';
 
 const schema = z.object({
   email: z.string().email('Email required'),
@@ -26,7 +25,6 @@ const LoginScreen = () => {
   const { colors } = useTheme();
   const [showPassword, setShowPassword] = useState(false);
   const navigation = useNavigation<LoginScreenProp>();
-  const authenticate = useAuthStore(state => state.authenticate);
 
   const { control, handleSubmit, formState } = useForm<Inputs>({
     resolver: zodResolver(schema),
@@ -39,7 +37,6 @@ const LoginScreen = () => {
   const handleSignIn: SubmitHandler<Inputs> = async ({ email, password }) => {
     try {
       await signUserIn({ email, password });
-      authenticate();
     } catch (error) {
       console.log(error);
     }
