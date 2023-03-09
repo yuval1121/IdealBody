@@ -5,7 +5,7 @@ import {
   WithFieldValue,
 } from 'firebase/firestore';
 
-export const universalConverter = <T extends DocumentData>() => {
+const universalConverter = <T extends DocumentData>() => {
   return {
     toFirestore(data: WithFieldValue<T>): DocumentData {
       return data;
