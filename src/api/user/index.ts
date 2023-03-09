@@ -31,12 +31,16 @@ export const updateUserData = async ({ weight, height }: UserData) => {
   const docRef = doc(db, 'users', user.uid).withConverter(
     universalConverter<UserModelData>()
   );
+  const timestamp = new Date();
+  timestamp.setUTCHours(0, 0, 0, 0);
+
   await updateDoc(docRef, {
     currWeight: weight,
     currHeight: height,
     BMIData: arrayUnion({
-      weight: weight,
-      timestamp: new Date(),
+      weight,
+      height,
+      timestamp,
     }),
   });
 };
