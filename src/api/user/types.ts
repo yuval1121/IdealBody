@@ -1,6 +1,7 @@
 export interface BMIData {
-  timestamp: Date;
   weight: number;
+  height: number;
+  timestamp: Date;
 }
 export interface UserModelData {
   currWeight: number;
