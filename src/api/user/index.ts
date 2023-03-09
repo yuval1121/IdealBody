@@ -1,4 +1,3 @@
-import '@firebase/firestore';
 import { arrayUnion, doc, getDoc, updateDoc } from '@firebase/firestore';
 import { setDoc } from 'firebase/firestore';
 import { getCurrentUser } from '../../utils/auth';
