@@ -1,45 +1,43 @@
 import '@firebase/firestore';
 import { arrayUnion, doc, getDoc, updateDoc } from '@firebase/firestore';
-import { getAuth } from 'firebase/auth';
 import { setDoc } from 'firebase/firestore';
+import { getCurrentUser } from '../../utils/auth';
 import { db } from '../../utils/config/firebase';
+import universalConverter from '../../utils/converters';
 import { UserData, UserModelData } from './types';
 
 export const getUser = async () => {
-  const { currentUser } = getAuth();
-
-  if (currentUser) {
-    const docRef = doc(db, 'users', currentUser.uid);
-    const docSnap = await getDoc(docRef);
-    return docSnap.data() as UserModelData;
-  }
+  const user = getCurrentUser();
+  const docRef = doc(db, 'users', user.uid).withConverter(
+    universalConverter<UserModelData>()
+  );
+  const docSnap = await getDoc(docRef);
+  return docSnap.data();
 };
 
 export const createUserData = async ({ weight, height }: UserData) => {
-  const { currentUser } = getAuth();
-
-  if (currentUser) {
-    const docRef = doc(db, 'users', currentUser.uid);
-    await setDoc(docRef, {
-      currWeight: weight,
-      currHeight: height,
-      BMIData: [],
-    });
-  }
+  const user = getCurrentUser();
+  const docRef = doc(db, 'users', user.uid).withConverter(
+    universalConverter<UserModelData>()
+  );
+  await setDoc(docRef, {
+    currWeight: weight,
+    currHeight: height,
+    BMIData: [],
+  });
 };
 
 export const updateUserData = async ({ weight, height }: UserData) => {
-  const { currentUser } = getAuth();
-
-  if (currentUser) {
-    const userRef = doc(db, 'users', currentUser.uid);
-    await updateDoc(userRef, {
-      currWeight: weight,
-      currHeight: height,
-      BMIData: arrayUnion({
-        weight: weight,
-        timestamp: new Date(),
-      }),
-    });
-  }
+  const user = getCurrentUser();
+  const docRef = doc(db, 'users', user.uid).withConverter(
+    universalConverter<UserModelData>()
+  );
+  await updateDoc(docRef, {
+    currWeight: weight,
+    currHeight: height,
+    BMIData: arrayUnion({
+      weight: weight,
+      timestamp: new Date(),
+    }),
+  });
 };
