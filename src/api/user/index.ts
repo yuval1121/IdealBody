@@ -1,6 +1,7 @@
 import { arrayUnion, doc, getDoc, updateDoc } from '@firebase/firestore';
 import { setDoc } from 'firebase/firestore';
 import { getCurrentUser } from '../../utils/auth';
+import { calculateBMI } from '../../utils/calculations';
 import { db } from '../../utils/config/firebase';
 import universalConverter from '../../utils/converters';
 import { UserData, UserModelData } from './types';
@@ -20,6 +21,7 @@ export const createUserData = async ({ weight, height }: UserData) => {
     universalConverter<UserModelData>()
   );
   await setDoc(docRef, {
+    BMI: 0,
     currWeight: weight,
     currHeight: height,
     BMIData: [],
@@ -38,6 +40,7 @@ export const updateUserData = async ({ weight, height }: UserData) => {
     currWeight: weight,
     currHeight: height,
     BMIData: arrayUnion({
+      BMI: calculateBMI(height, weight),
       weight,
       height,
       timestamp,

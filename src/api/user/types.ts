@@ -4,6 +4,7 @@ export interface BMIData {
   timestamp: Date;
 }
 export interface UserModelData {
+  BMI: number;
   currWeight: number;
   currHeight: number;
   BMIData: BMIData[];
