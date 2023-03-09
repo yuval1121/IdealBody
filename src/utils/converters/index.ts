@@ -1,21 +1,23 @@
 import {
   DocumentData,
+  FirestoreDataConverter,
   QueryDocumentSnapshot,
   SnapshotOptions,
   WithFieldValue,
 } from 'firebase/firestore';
 
-const universalConverter = <T extends DocumentData>() => {
+const universalConverter = <
+  T extends DocumentData
+>(): FirestoreDataConverter<T> => {
   return {
-    toFirestore(data: WithFieldValue<T>): DocumentData {
+    toFirestore(data: WithFieldValue<T>) {
       return data;
     },
     fromFirestore(
       snapshot: QueryDocumentSnapshot<T>,
       options: SnapshotOptions
-    ): T {
-      const data = snapshot.data(options);
-      return data;
+    ) {
+      return snapshot.data(options);
     },
   };
 };
