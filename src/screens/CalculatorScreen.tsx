@@ -1,5 +1,4 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { getAuth } from 'firebase/auth';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { StyleSheet, View } from 'react-native';
