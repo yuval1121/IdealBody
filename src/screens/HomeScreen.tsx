@@ -1,23 +1,31 @@
-import { useCallback, useEffect, useState } from 'react';
+import { doc, onSnapshot } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button } from 'react-native-paper';
-import { getUserData } from '../api/user';
 import { UserModelData } from '../api/user/types';
 import Card from '../components/Elements/Card';
+import { getCurrentUser } from '../utils/auth';
+import { db } from '../utils/config/firebase';
+import universalConverter from '../utils/converters';
 
 const HomeScreen = () => {
   const [userData, setUserData] = useState<UserModelData>();
 
-  const fetchUserData = useCallback(async () => {
-    const data = await getUserData();
-    if (data) {
-      setUserData(data);
+  useEffect(() => {
+    try {
+      const user = getCurrentUser();
+      const docRef = doc(db, 'users', user.uid).withConverter(
+        universalConverter<UserModelData>()
+      );
+      const unsub = onSnapshot(docRef, doc => {
+        setUserData(doc.data());
+      });
+
+      return unsub;
+    } catch (e) {
+      console.log(e);
     }
   }, []);
-
-  useEffect(() => {
-    fetchUserData().catch(e => console.log(e));
-  }, [fetchUserData]);
 
   return (
     <View style={styles.container}>
@@ -51,8 +59,6 @@ const HomeScreen = () => {
         texts={[['Calories Burned', `${userData?.currCaloriesOut}cal`]]}
         buttons={() => <Button>Record</Button>}
       />
-
-      <Button onPress={fetchUserData}>Refresh</Button>
     </View>
   );
 };
