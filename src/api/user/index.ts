@@ -30,11 +30,11 @@ export const createUserData = async ({ weight, height }: UserData) => {
 
 export const updateUserData = async ({ weight, height }: UserData) => {
   const user = getCurrentUser();
+  const timestamp = new Date();
+  timestamp.setUTCHours(0, 0, 0, 0);
   const docRef = doc(db, 'users', user.uid).withConverter(
     universalConverter<UserModelData>()
   );
-  const timestamp = new Date();
-  timestamp.setUTCHours(0, 0, 0, 0);
 
   await updateDoc(docRef, {
     currWeight: weight,
