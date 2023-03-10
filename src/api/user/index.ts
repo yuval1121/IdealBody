@@ -6,7 +6,7 @@ import { db } from '../../utils/config/firebase';
 import universalConverter from '../../utils/converters';
 import { UserData, UserModelData } from './types';
 
-export const getUser = async () => {
+export const getUserData = async () => {
   const user = getCurrentUser();
   const docRef = doc(db, 'users', user.uid).withConverter(
     universalConverter<UserModelData>()
@@ -21,14 +21,23 @@ export const createUserData = async ({ weight, height }: UserData) => {
     universalConverter<UserModelData>()
   );
   await setDoc(docRef, {
-    BMI: 0,
+    currBMI: 0,
     currWeight: weight,
     currHeight: height,
-    BMIData: [],
+    currWater: 0,
+    currCaloriesIn: 0,
+    currCaloriesOut: 0,
+    DataHistory: [],
   });
 };
 
-export const updateUserData = async ({ weight, height }: UserData) => {
+export const updateUserData = async ({
+  weight,
+  height,
+  water,
+  caloriesIn,
+  caloriesOut,
+}: UserData) => {
   const user = getCurrentUser();
   const timestamp = new Date();
   timestamp.setUTCHours(0, 0, 0, 0);
@@ -39,10 +48,17 @@ export const updateUserData = async ({ weight, height }: UserData) => {
   await updateDoc(docRef, {
     currWeight: weight,
     currHeight: height,
-    BMIData: arrayUnion({
+    currWater: water,
+    currCaloriesIn: caloriesIn,
+    currCaloriesOut: caloriesOut,
+    currBMI: calculateBMI(height, weight),
+    DataHistory: arrayUnion({
       BMI: calculateBMI(height, weight),
       weight,
       height,
+      water,
+      caloriesIn,
+      caloriesOut,
       timestamp,
     }),
   });

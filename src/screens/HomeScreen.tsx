@@ -1,15 +1,31 @@
+import { useCallback, useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button } from 'react-native-paper';
+import { getUserData } from '../api/user';
+import { UserModelData } from '../api/user/types';
 import Card from '../components/Elements/Card';
 
 const HomeScreen = () => {
+  const [userData, setUserData] = useState<UserModelData>();
+
+  const fetchUserData = useCallback(async () => {
+    const data = await getUserData();
+    if (data) {
+      setUserData(data);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchUserData().catch(e => console.log(e));
+  }, [fetchUserData]);
+
   return (
     <View style={styles.container}>
       <Card
         header="Body Composition"
         texts={[
-          ['Weight', '82kgs'],
-          ['BMI', '25.3'],
+          ['Weight', `${userData?.currWeight}kgs`],
+          ['BMI', `${userData?.currBMI}`],
         ]}
         buttons={() => {
           return (
@@ -22,19 +38,21 @@ const HomeScreen = () => {
       />
       <Card
         header="Water"
-        texts={[['Glasses', '2']]}
+        texts={[['Glasses', `${userData?.currWater}`]]}
         buttons={() => <Button>Record</Button>}
       />
       <Card
         header="Calories"
-        texts={[['Intake', '1884cal']]}
+        texts={[['Intake', `${userData?.currCaloriesIn}cal`]]}
         buttons={() => <Button>Record</Button>}
       />
       <Card
         header="Exercise"
-        texts={[['Calories Burned', '664cal']]}
+        texts={[['Calories Burned', `${userData?.currCaloriesOut}cal`]]}
         buttons={() => <Button>Record</Button>}
       />
+
+      <Button onPress={fetchUserData}>Refresh</Button>
     </View>
   );
 };

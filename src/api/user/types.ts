@@ -1,16 +1,26 @@
-export interface BMIData {
+export interface DataHistory {
   weight: number;
   height: number;
+  water: number;
+  caloriesIn: number;
+  caloriesOut: number;
+  BMI: number;
   timestamp: Date;
 }
 export interface UserModelData {
-  BMI: number;
+  currBMI: number;
   currWeight: number;
   currHeight: number;
-  BMIData: BMIData[];
+  currWater: number;
+  currCaloriesIn: number;
+  currCaloriesOut: number;
+  DataHistory: DataHistory[];
 }
 
 export interface UserData {
   weight: number;
   height: number;
+  water: number;
+  caloriesIn: number;
+  caloriesOut: number;
 }
