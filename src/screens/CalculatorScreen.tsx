@@ -62,17 +62,6 @@ const CalculatorScreen = () => {
           Calculate
         </Button>
 
-        <Button
-          onPress={async () => {
-            const auth = getAuth();
-            await auth.signOut();
-          }}
-          style={styles.button}
-          mode="contained"
-        >
-          Sign Out
-        </Button>
-
         {BMI !== null && <Text style={styles.text}>BMI is {BMI}</Text>}
       </Card>
     </View>
