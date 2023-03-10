@@ -1,6 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { View } from 'react-native';
-import { Text } from 'react-native-paper';
+import LoadingLayout from '../components/Layout/LoadingLayout';
 import {
   CombinedDarkTheme,
   CombinedDefaultTheme,
@@ -16,12 +15,7 @@ interface Props {
 const RootNavigator = ({ isDarkMode }: Props) => {
   const { loggedIn, initializing } = useAuth();
 
-  if (initializing)
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Loading...</Text>
-      </View>
-    );
+  if (initializing) return <LoadingLayout />;
 
   return (
     <NavigationContainer

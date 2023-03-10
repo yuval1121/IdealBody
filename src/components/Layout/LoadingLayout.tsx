@@ -2,9 +2,11 @@ import { StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
 
 const LoadingLayout = () => {
-  <View style={styles.container}>
-    <Text>Loading...</Text>
-  </View>;
+  return (
+    <View style={styles.container}>
+      <Text>Loading...</Text>
+    </View>
+  );
 };
 
 export default LoadingLayout;
