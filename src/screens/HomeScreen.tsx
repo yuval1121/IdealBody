@@ -11,23 +11,29 @@ const HomeScreen = () => {
           ['Weight', '82kgs'],
           ['BMI', '25.3'],
         ]}
-        graphButton={() => <Button mode="contained">Graph</Button>}
-        recordButton={() => <Button>Record</Button>}
+        buttons={() => {
+          return (
+            <>
+              <Button mode="contained">Graph</Button>
+              <Button>Record</Button>
+            </>
+          );
+        }}
       />
       <Card
         header="Water"
         texts={[['Glasses', '2']]}
-        recordButton={() => <Button>Record</Button>}
+        buttons={() => <Button>Record</Button>}
       />
       <Card
         header="Calories"
         texts={[['Intake', '1884cal']]}
-        recordButton={() => <Button>Record</Button>}
+        buttons={() => <Button>Record</Button>}
       />
       <Card
         header="Exercise"
         texts={[['Calories Burned', '664cal']]}
-        recordButton={() => <Button>Record</Button>}
+        buttons={() => <Button>Record</Button>}
       />
     </View>
   );

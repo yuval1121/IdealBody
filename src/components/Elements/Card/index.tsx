@@ -6,11 +6,10 @@ type cardText = [[string, string], [string, string]?];
 interface Props {
   header: string;
   texts: cardText;
-  recordButton: () => JSX.Element;
-  graphButton?: () => JSX.Element;
+  buttons: () => JSX.Element;
 }
 
-const Card = ({ header, texts, recordButton, graphButton }: Props) => {
+const Card = ({ header, texts, buttons }: Props) => {
   const [firstText, secondText] = texts;
 
   return (
@@ -29,10 +28,7 @@ const Card = ({ header, texts, recordButton, graphButton }: Props) => {
         )}
       </View>
 
-      <View style={styles.buttonView}>
-        {graphButton && graphButton()}
-        {recordButton()}
-      </View>
+      <View style={styles.buttonView}>{buttons()}</View>
     </View>
   );
 };
