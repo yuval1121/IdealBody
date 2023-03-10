@@ -10,8 +10,12 @@ const Tab = createBottomTabNavigator();
 
 const BottomTabs = () => {
   const handleLogout = async () => {
-    const auth = getAuth();
-    await auth.signOut();
+    try {
+      const auth = getAuth();
+      await auth.signOut();
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
