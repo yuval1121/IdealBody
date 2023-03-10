@@ -19,7 +19,6 @@ export const CombinedDefaultTheme = {
   colors: {
     ...MD3LightTheme.colors,
     ...LightTheme.colors,
-    // background: LightTheme.colors.primary,
   },
 };
 
@@ -29,6 +28,5 @@ export const CombinedDarkTheme = {
   colors: {
     ...MD3DarkTheme.colors,
     ...DarkTheme.colors,
-    // background: DarkTheme.colors.primary,
   },
 };
