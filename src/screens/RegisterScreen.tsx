@@ -39,7 +39,14 @@ const RegisterScreen = () => {
   const handleRegister: SubmitHandler<Inputs> = async ({ email, password }) => {
     try {
       await createUser({ email, password });
-      await createUserData({ weight: 0, height: 0 });
+
+      await createUserData({
+        weight: 0,
+        height: 0,
+        water: 0,
+        caloriesIn: 0,
+        caloriesOut: 0,
+      });
       navigator.navigate('Login');
     } catch (error) {
       console.log(error);

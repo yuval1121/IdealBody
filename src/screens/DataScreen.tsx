@@ -31,6 +31,9 @@ const DataScreen = () => {
 
   const saveHandler: SubmitHandler<Inputs> = async ({ weight, height }) => {
     try {
+      //TODO: Add all parameters to form
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
       await updateUserData({ weight, height });
     } catch (e) {
       console.log(e);
