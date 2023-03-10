@@ -49,7 +49,7 @@
     "test": "jest",
     "prepare": "husky install",
     "pre-commit": "lint-staged",
-    "pre-push": "tsc",
+    "pre-push": "tsc --noEmit --skipLibCheck --jsx react-native",
     "react-devtools": "react-devtools",
     "expo-upgrade": "expo-cli upgrade",
     "clean-cache": "expo start -c"
