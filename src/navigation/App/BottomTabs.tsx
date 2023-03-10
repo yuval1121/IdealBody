@@ -14,8 +14,6 @@ const BottomTabs = () => {
       const auth = getAuth();
       await auth.signOut();
     } catch (e) {
-      const k;
-      console.log(k);
       console.log(e);
     }
   };
