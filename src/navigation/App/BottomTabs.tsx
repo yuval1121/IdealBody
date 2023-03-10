@@ -27,7 +27,7 @@ const BottomTabs = () => {
       }}
     >
       <Tab.Screen
-        name="HomeScreen"
+        name="Home"
         component={HomeScreen}
         options={{
           tabBarLabel: 'Home',
@@ -37,7 +37,7 @@ const BottomTabs = () => {
         }}
       />
       <Tab.Screen
-        name="AddScreen"
+        name="Add"
         component={DataScreen}
         options={{
           tabBarLabel: 'Add',
@@ -48,7 +48,7 @@ const BottomTabs = () => {
       />
 
       <Tab.Screen
-        name="CalculatorScreen"
+        name="Calculator"
         component={CalculatorScreen}
         options={{
           tabBarLabel: 'Calculator',
