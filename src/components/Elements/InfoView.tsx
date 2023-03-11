@@ -9,7 +9,7 @@ interface Props {
   buttons: () => JSX.Element;
 }
 
-const Card = ({ header, texts, buttons }: Props) => {
+const InfoView = ({ header, texts, buttons }: Props) => {
   const [firstText, secondText] = texts;
 
   return (
@@ -33,7 +33,7 @@ const Card = ({ header, texts, buttons }: Props) => {
   );
 };
 
-export default Card;
+export default InfoView;
 
 const styles = StyleSheet.create({
   card: {

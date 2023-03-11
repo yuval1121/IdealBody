@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import { UserModelData } from '../api/user/types';
-import Card from '../components/Elements/Card';
+import InfoView from '../components/Elements/InfoView';
+import LoadingLayout from '../components/Layout/LoadingLayout';
 import { getCurrentUser } from '../utils/auth';
 import { db } from '../utils/config/firebase';
 import universalConverter from '../utils/converters';
@@ -27,9 +28,11 @@ const HomeScreen = () => {
     }
   }, []);
 
+  if (!userData) return <LoadingLayout />;
+
   return (
     <View style={styles.container}>
-      <Card
+      <InfoView
         header="Body Composition"
         texts={[
           ['Weight', `${userData?.currWeight}kgs`],
@@ -44,17 +47,17 @@ const HomeScreen = () => {
           );
         }}
       />
-      <Card
+      <InfoView
         header="Water"
         texts={[['Glasses', `${userData?.currWater}`]]}
         buttons={() => <Button>Record</Button>}
       />
-      <Card
+      <InfoView
         header="Calories"
         texts={[['Intake', `${userData?.currCaloriesIn}cal`]]}
         buttons={() => <Button>Record</Button>}
       />
-      <Card
+      <InfoView
         header="Exercise"
         texts={[['Calories Burned', `${userData?.currCaloriesOut}cal`]]}
         buttons={() => <Button>Record</Button>}
