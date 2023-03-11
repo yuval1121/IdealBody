@@ -13,9 +13,9 @@ const InfoView = ({ header, texts, buttons }: Props) => {
   const [firstText, secondText] = texts;
 
   return (
-    <Surface style={styles.card}>
-      <Text style={styles.cardHeader}>{header}</Text>
-      <View style={styles.textView}>
+    <Surface style={styles.container}>
+      <Text style={styles.header}>{header}</Text>
+      <View style={styles.textContainer}>
         <View>
           <Text>{firstText[0]}</Text>
           <Text>{firstText[1]}</Text>
@@ -28,7 +28,7 @@ const InfoView = ({ header, texts, buttons }: Props) => {
         )}
       </View>
 
-      <View style={styles.buttonView}>{buttons()}</View>
+      <View style={styles.buttonContainer}>{buttons()}</View>
     </Surface>
   );
 };
@@ -36,7 +36,7 @@ const InfoView = ({ header, texts, buttons }: Props) => {
 export default InfoView;
 
 const styles = StyleSheet.create({
-  card: {
+  container: {
     width: '80%',
     height: '10%',
     borderRadius: 10,
@@ -44,18 +44,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  cardHeader: {
+  header: {
     position: 'absolute',
     bottom: '100%',
     left: '2%',
   },
-  textView: {
+  textContainer: {
     flex: 1,
     flexDirection: 'row',
     columnGap: 25,
     marginLeft: 5,
   },
-  buttonView: {
+  buttonContainer: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-end',
