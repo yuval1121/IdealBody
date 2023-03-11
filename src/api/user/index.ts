@@ -63,3 +63,18 @@ export const updateUserData = async ({
     }),
   });
 };
+
+export const resetUserData = async ({ weight, height }: UserData) => {
+  const user = getCurrentUser();
+  const docRef = doc(db, 'users', user.uid).withConverter(
+    universalConverter<UserModelData>()
+  );
+  await setDoc(docRef, {
+    currBMI: 0,
+    currWeight: weight,
+    currHeight: height,
+    currWater: 0,
+    currCaloriesIn: 0,
+    currCaloriesOut: 0,
+  });
+};
