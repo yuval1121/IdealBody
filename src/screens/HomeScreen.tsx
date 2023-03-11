@@ -1,10 +1,10 @@
 import { doc, onSnapshot } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Button } from 'react-native-paper';
+import { ActivityIndicator, Button } from 'react-native-paper';
 import { UserModelData } from '../api/user/types';
 import InfoView from '../components/Elements/InfoView';
-import LoadingLayout from '../components/Layout/LoadingLayout';
+import Spinner from '../components/Elements/Spinner';
 import { getCurrentUser } from '../utils/auth';
 import { db } from '../utils/config/firebase';
 import universalConverter from '../utils/converters';
@@ -28,7 +28,7 @@ const HomeScreen = () => {
     }
   }, []);
 
-  if (!userData) return <LoadingLayout />;
+  if (!userData) return <Spinner />;
 
   return (
     <View style={styles.container}>

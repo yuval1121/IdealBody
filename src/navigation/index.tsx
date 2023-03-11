@@ -1,5 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native';
-import LoadingLayout from '../components/Layout/LoadingLayout';
+import Spinner from '../components/Elements/Spinner';
 import {
   CombinedDarkTheme,
   CombinedDefaultTheme,
@@ -15,7 +15,7 @@ interface Props {
 const RootNavigator = ({ isDarkMode }: Props) => {
   const { loggedIn, initializing } = useAuth();
 
-  if (initializing) return <LoadingLayout />;
+  if (initializing) return <Spinner />;
 
   return (
     <NavigationContainer

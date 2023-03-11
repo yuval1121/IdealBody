@@ -14,7 +14,7 @@ export interface UserModelData {
   currWater: number;
   currCaloriesIn: number;
   currCaloriesOut: number;
-  DataHistory: DataHistory[];
+  DataHistory?: DataHistory[];
 }
 
 export interface UserData {
