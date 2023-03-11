@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native';
-import { Text, useTheme } from 'react-native-paper';
+import { Surface, Text } from 'react-native-paper';
 
 type cardText = [[string, string], [string, string]?];
 
@@ -11,19 +11,9 @@ interface Props {
 
 const Card = ({ header, texts, buttons }: Props) => {
   const [firstText, secondText] = texts;
-  const {
-    colors: { inverseOnSurface },
-  } = useTheme();
 
   return (
-    <View
-      style={[
-        styles.card,
-        {
-          backgroundColor: inverseOnSurface,
-        },
-      ]}
-    >
+    <Surface style={styles.card}>
       <Text style={styles.cardHeader}>{header}</Text>
       <View style={styles.textView}>
         <View>
@@ -39,7 +29,7 @@ const Card = ({ header, texts, buttons }: Props) => {
       </View>
 
       <View style={styles.buttonView}>{buttons()}</View>
-    </View>
+    </Surface>
   );
 };
 
@@ -49,7 +39,6 @@ const styles = StyleSheet.create({
   card: {
     width: '80%',
     height: '10%',
-    backgroundColor: '#222222',
     borderRadius: 10,
     flexDirection: 'row',
     alignItems: 'center',
