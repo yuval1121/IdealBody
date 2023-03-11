@@ -1,7 +1,7 @@
 import { doc, onSnapshot } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { ActivityIndicator, Button } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 import { UserModelData } from '../api/user/types';
 import InfoView from '../components/Elements/InfoView';
 import Spinner from '../components/Elements/Spinner';
