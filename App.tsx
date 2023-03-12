@@ -12,13 +12,11 @@ export default function App() {
   I18nManager.allowRTL(false);
 
   return (
-    <>
-      <PaperProvider
-        theme={isDarkMode ? CombinedDarkTheme : CombinedDefaultTheme}
-      >
-        <RootNavigator isDarkMode={isDarkMode} />
-        <StatusBar style="auto" />
-      </PaperProvider>
-    </>
+    <PaperProvider
+      theme={isDarkMode ? CombinedDarkTheme : CombinedDefaultTheme}
+    >
+      <RootNavigator isDarkMode={isDarkMode} />
+      <StatusBar style="auto" />
+    </PaperProvider>
   );
 }
