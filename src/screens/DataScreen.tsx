@@ -6,6 +6,7 @@ import { Button, Modal, Portal, Text, useTheme } from 'react-native-paper';
 import { z } from 'zod';
 import { updateUserData } from '../api/user';
 import { TextInput } from '../components/Form/TextInput';
+import { calculateBMI } from '../utils/calculations';
 
 const schema = z.object({
   height: z.preprocess(arg => {
@@ -31,10 +32,14 @@ const DataScreen = () => {
 
   const saveHandler: SubmitHandler<Inputs> = async ({ weight, height }) => {
     try {
-      //TODO: Add all parameters to form
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      //@ts-ignore
-      await updateUserData({ weight, height });
+      await updateUserData({
+        weight,
+        height,
+        water: 2,
+        caloriesIn: 1884,
+        caloriesOut: 664,
+        BMI: calculateBMI(weight, height),
+      });
     } catch (e) {
       console.log(e);
     } finally {

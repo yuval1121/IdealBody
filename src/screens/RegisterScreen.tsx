@@ -46,6 +46,7 @@ const RegisterScreen = () => {
         water: 0,
         caloriesIn: 0,
         caloriesOut: 0,
+        BMI: 0,
       });
       navigator.navigate('Login');
     } catch (error) {

@@ -1,8 +1,8 @@
-import { arrayUnion, doc, getDoc, updateDoc } from '@firebase/firestore';
+import { doc, getDoc, updateDoc } from '@firebase/firestore';
 import { setDoc } from 'firebase/firestore';
+import { db } from '../../config/firebase';
 import { getCurrentUser } from '../../utils/auth';
 import { calculateBMI } from '../../utils/calculations';
-import { db } from '../../utils/config/firebase';
 import universalConverter from '../../utils/converters';
 import { UserData, UserModelData } from './types';
 
@@ -17,17 +17,23 @@ export const getUserData = async () => {
 
 export const createUserData = async ({ weight, height }: UserData) => {
   const user = getCurrentUser();
-  const docRef = doc(db, 'users', user.uid).withConverter(
+  const userRef = doc(db, 'users', user.uid).withConverter(
     universalConverter<UserModelData>()
   );
-  await setDoc(docRef, {
-    currBMI: 0,
-    currWeight: weight,
-    currHeight: height,
-    currWater: 0,
-    currCaloriesIn: 0,
-    currCaloriesOut: 0,
-    DataHistory: [],
+  const timestamp = new Date();
+  timestamp.setUTCHours(0, 0, 0, 0);
+
+  await setDoc(userRef, {
+    current: {
+      BMI: 0,
+      weight: weight,
+      height: height,
+      water: 0,
+      caloriesIn: 0,
+      caloriesOut: 0,
+      timestamp,
+    },
+    DataHistory: {},
   });
 };
 
@@ -39,42 +45,54 @@ export const updateUserData = async ({
   caloriesOut,
 }: UserData) => {
   const user = getCurrentUser();
-  const timestamp = new Date();
-  timestamp.setUTCHours(0, 0, 0, 0);
-  const docRef = doc(db, 'users', user.uid).withConverter(
+  const userRef = doc(db, 'users', user.uid).withConverter(
     universalConverter<UserModelData>()
   );
 
-  await updateDoc(docRef, {
-    currWeight: weight,
-    currHeight: height,
-    currWater: water,
-    currCaloriesIn: caloriesIn,
-    currCaloriesOut: caloriesOut,
-    currBMI: calculateBMI(height, weight),
-    DataHistory: arrayUnion({
+  const timestamp = new Date();
+  timestamp.setUTCHours(0, 0, 0, 0);
+  const timestampKey = timestamp.toLocaleDateString('en-GB', {
+    timeZone: 'utc',
+  });
+
+  await updateDoc(userRef, {
+    current: {
+      weight: weight,
+      height: height,
+      water: water,
+      caloriesIn: caloriesIn,
+      caloriesOut: caloriesOut,
       BMI: calculateBMI(height, weight),
-      weight,
-      height,
-      water,
-      caloriesIn,
-      caloriesOut,
       timestamp,
-    }),
+    },
+    DataHistory: {
+      [timestampKey]: {
+        BMI: calculateBMI(height, weight),
+        weight,
+        height,
+        water,
+        caloriesIn,
+        caloriesOut,
+        timestamp,
+      },
+    },
   });
 };
 
-export const resetUserData = async ({ weight, height }: UserData) => {
+export const resetCurrentUserData = async () => {
   const user = getCurrentUser();
-  const docRef = doc(db, 'users', user.uid).withConverter(
+  const userRef = doc(db, 'users', user.uid).withConverter(
     universalConverter<UserModelData>()
   );
-  await setDoc(docRef, {
-    currBMI: 0,
-    currWeight: weight,
-    currHeight: height,
-    currWater: 0,
-    currCaloriesIn: 0,
-    currCaloriesOut: 0,
+  const timestamp = new Date();
+  timestamp.setUTCHours(0, 0, 0, 0);
+
+  await updateDoc(userRef, {
+    current: {
+      water: 0,
+      caloriesIn: 0,
+      caloriesOut: 0,
+      timestamp,
+    },
   });
 };
