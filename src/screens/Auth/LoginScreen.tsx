@@ -10,9 +10,9 @@ import {
   useTheme,
 } from 'react-native-paper';
 import { z } from 'zod';
-import { signUserIn } from '../api/auth';
-import { TextInput } from '../components/Form/TextInput';
-import { LoginScreenProp } from '../navigation/Auth/types';
+import { signUserIn } from '../../api/auth';
+import { TextInput } from '../../components/Form/TextInput';
+import { LoginScreenProp } from '../../navigation/Auth/types';
 
 const schema = z.object({
   email: z.string().email('Email required'),

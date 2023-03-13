@@ -4,8 +4,8 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { StyleSheet, View } from 'react-native';
 import { Button, Card, HelperText, Text } from 'react-native-paper';
 import { z } from 'zod';
-import { TextInput } from '../components/Form/TextInput';
-import { calculateBMI } from '../utils/calculations';
+import { TextInput } from '../../components/Form/TextInput';
+import { calculateBMI } from '../../utils/calculations';
 
 const schema = z.object({
   height: z.preprocess(arg => {

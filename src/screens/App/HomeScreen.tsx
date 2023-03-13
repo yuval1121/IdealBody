@@ -2,12 +2,12 @@ import { doc, onSnapshot } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button } from 'react-native-paper';
-import { UserData, UserModelData } from '../api/user/types';
-import InfoView from '../components/Elements/InfoView';
-import Spinner from '../components/Elements/Spinner';
-import { db } from '../config/firebase';
-import { getCurrentUser } from '../utils/auth';
-import universalConverter from '../utils/converter';
+import { UserData, UserModelData } from '../../api/user/types';
+import InfoView from '../../components/Elements/InfoView';
+import Spinner from '../../components/Elements/Spinner';
+import { db } from '../../config/firebase';
+import { getCurrentUser } from '../../utils/auth';
+import universalConverter from '../../utils/converter';
 
 const HomeScreen = () => {
   const [userData, setUserData] = useState<UserData>();

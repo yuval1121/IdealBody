@@ -2,9 +2,9 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { getAuth } from 'firebase/auth';
 import { Button } from 'react-native-paper';
-import CalculatorScreen from '../../screens/CalculatorScreen';
-import DataScreen from '../../screens/DataScreen';
-import HomeScreen from '../../screens/HomeScreen';
+import CalculatorScreen from '../../screens/App/CalculatorScreen';
+import DataScreen from '../../screens/App/DataScreen';
+import HomeScreen from '../../screens/App/HomeScreen';
 
 const Tab = createBottomTabNavigator();
 

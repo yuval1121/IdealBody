@@ -1,5 +1,5 @@
 import { fireEvent, render } from '@testing-library/react-native';
-import TestScreen from '../TestScreen';
+import TestScreen from '../App/TestScreen';
 
 describe('Test Screen', () => {
   it('test something', () => {

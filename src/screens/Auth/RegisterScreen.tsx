@@ -10,10 +10,10 @@ import {
   useTheme,
 } from 'react-native-paper';
 import { z } from 'zod';
-import { createUser } from '../api/auth';
-import { createUserData } from '../api/user';
-import { TextInput } from '../components/Form/TextInput';
-import { RegisterScreenProp } from '../navigation/Auth/types';
+import { createUser } from '../../api/auth';
+import { createUserData } from '../../api/user';
+import { TextInput } from '../../components/Form/TextInput';
+import { RegisterScreenProp } from '../../navigation/Auth/types';
 
 const schema = z.object({
   name: z.string().min(1),
