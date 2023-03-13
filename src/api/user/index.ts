@@ -3,7 +3,7 @@ import { setDoc } from 'firebase/firestore';
 import { db } from '../../config/firebase';
 import { getCurrentUser } from '../../utils/auth';
 import { calculateBMI } from '../../utils/calculations';
-import universalConverter from '../../utils/converters';
+import universalConverter from '../../utils/converter';
 import { UserData, UserModelData } from './types';
 
 export const getUserData = async () => {
@@ -21,7 +21,7 @@ export const createUserData = async ({ weight, height }: UserData) => {
     universalConverter<UserModelData>()
   );
   const timestamp = new Date();
-  timestamp.setUTCHours(0, 0, 0, 0);
+  timestamp.setHours(0, 0, 0, 0);
 
   await setDoc(userRef, {
     current: {
@@ -50,10 +50,8 @@ export const updateUserData = async ({
   );
 
   const timestamp = new Date();
-  timestamp.setUTCHours(0, 0, 0, 0);
-  const timestampKey = timestamp.toLocaleDateString('en-GB', {
-    timeZone: 'utc',
-  });
+  timestamp.setHours(0, 0, 0, 0);
+  const timestampKey = timestamp.toLocaleDateString('en-GB');
 
   await updateDoc(userRef, {
     current: {
@@ -85,7 +83,7 @@ export const resetCurrentUserData = async () => {
     universalConverter<UserModelData>()
   );
   const timestamp = new Date();
-  timestamp.setUTCHours(0, 0, 0, 0);
+  timestamp.setHours(0, 0, 0, 0);
 
   await updateDoc(userRef, {
     current: {

@@ -1,6 +1,6 @@
 {
   "preset": "react-native",
-  "setupFiles": ["<rootDir>/src/utils/test/jest_mocks.ts"],
+  "setupFiles": ["<rootDir>/src/utils/jest_mocks.ts"],
   "transformIgnorePatterns": [
     "node_modules/(?!(jest-)?@?react-native|@react-native-community|@react-navigation)"
   ],

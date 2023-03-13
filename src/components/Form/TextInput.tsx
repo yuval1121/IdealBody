@@ -10,10 +10,7 @@ import {
   TextInputProps,
   useTheme,
 } from 'react-native-paper';
-import {
-  MakePropertyOptional,
-  MakePropertyRequired,
-} from '../../utils/type/typeUtils';
+import { MakePropertyOptional, MakePropertyRequired } from '../../utils/types';
 
 type CustomTextInputProps = MakePropertyOptional<TextInputProps, 'theme'> & {
   errorIcon?: string;

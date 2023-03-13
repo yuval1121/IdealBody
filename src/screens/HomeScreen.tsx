@@ -7,7 +7,7 @@ import InfoView from '../components/Elements/InfoView';
 import Spinner from '../components/Elements/Spinner';
 import { db } from '../config/firebase';
 import { getCurrentUser } from '../utils/auth';
-import universalConverter from '../utils/converters';
+import universalConverter from '../utils/converter';
 
 const HomeScreen = () => {
   const [userData, setUserData] = useState<UserData>();
