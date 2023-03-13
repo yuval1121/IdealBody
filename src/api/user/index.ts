@@ -51,7 +51,12 @@ export const updateUserData = async ({
 
   const timestamp = new Date();
   timestamp.setHours(0, 0, 0, 0);
-  const timestampKey = timestamp.toLocaleDateString('en-GB');
+  const timestampKey = timestamp.toLocaleDateString('en-GB', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
 
   await updateDoc(userRef, {
     current: {
@@ -63,16 +68,14 @@ export const updateUserData = async ({
       BMI: calculateBMI(height, weight),
       timestamp,
     },
-    DataHistory: {
-      [timestampKey]: {
-        BMI: calculateBMI(height, weight),
-        weight,
-        height,
-        water,
-        caloriesIn,
-        caloriesOut,
-        timestamp,
-      },
+    [`DataHistory.${timestampKey}`]: {
+      BMI: calculateBMI(height, weight),
+      weight,
+      height,
+      water,
+      caloriesIn,
+      caloriesOut,
+      timestamp,
     },
   });
 };
