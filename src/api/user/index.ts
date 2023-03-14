@@ -2,7 +2,6 @@ import { doc, getDoc, updateDoc } from '@firebase/firestore';
 import { setDoc } from 'firebase/firestore';
 import { db } from '../../config/firebase';
 import { getCurrentUser } from '../../utils/auth';
-import { calculateBMI } from '../../utils/calculations';
 import universalConverter from '../../utils/converter';
 import { UserData, UserModelData } from './types';
 
@@ -37,13 +36,7 @@ export const createUserData = async ({ weight, height }: UserData) => {
   });
 };
 
-export const updateUserData = async ({
-  weight,
-  height,
-  water,
-  caloriesIn,
-  caloriesOut,
-}: UserData) => {
+export const updateUserData = async (data: UserData) => {
   const user = getCurrentUser();
   const userRef = doc(db, 'users', user.uid).withConverter(
     universalConverter<UserModelData>()
@@ -59,24 +52,8 @@ export const updateUserData = async ({
   });
 
   await updateDoc(userRef, {
-    current: {
-      weight: weight,
-      height: height,
-      water: water,
-      caloriesIn: caloriesIn,
-      caloriesOut: caloriesOut,
-      BMI: calculateBMI(height, weight),
-      timestamp,
-    },
-    [`DataHistory.${timestampKey}`]: {
-      BMI: calculateBMI(height, weight),
-      weight,
-      height,
-      water,
-      caloriesIn,
-      caloriesOut,
-      timestamp,
-    },
+    current: data,
+    [`DataHistory.${timestampKey}`]: data,
   });
 };
 
