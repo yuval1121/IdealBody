@@ -1,7 +1,7 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { getAuth } from 'firebase/auth';
-import { Button } from 'react-native-paper';
+import { IconButton } from 'react-native-paper';
 import CalculatorScreen from '../../screens/App/CalculatorScreen';
 import DataScreen from '../../screens/App/DataScreen';
 import HomeScreen from '../../screens/App/HomeScreen';
@@ -22,7 +22,7 @@ const BottomTabs = () => {
     <Tab.Navigator
       screenOptions={{
         headerRight: () => {
-          return <Button onPress={handleLogout}>Logout</Button>;
+          return <IconButton icon="logout" onPress={handleLogout} />;
         },
       }}
     >
