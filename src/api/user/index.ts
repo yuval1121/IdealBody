@@ -5,20 +5,22 @@ import { getCurrentUser } from '../../utils/auth';
 import universalConverter from '../../utils/converter';
 import { UserData, UserModelData } from './types';
 
-export const getUserData = async () => {
-  const user = getCurrentUser();
-  const docRef = doc(db, 'users', user.uid).withConverter(
-    universalConverter<UserModelData>()
-  );
-  const docSnap = await getDoc(docRef);
-  return docSnap.data();
-};
-
-export const createUserData = async ({ weight, height }: UserData) => {
+export const getUserRef = () => {
   const user = getCurrentUser();
   const userRef = doc(db, 'users', user.uid).withConverter(
     universalConverter<UserModelData>()
   );
+  return userRef;
+};
+
+export const getUserData = async () => {
+  const userRef = getUserRef();
+  const userSnap = await getDoc(userRef);
+  return userSnap.data();
+};
+
+export const createUserData = async ({ weight, height }: UserData) => {
+  const userRef = getUserRef();
   const timestamp = new Date();
   timestamp.setHours(0, 0, 0, 0);
 
@@ -37,11 +39,7 @@ export const createUserData = async ({ weight, height }: UserData) => {
 };
 
 export const updateUserData = async (data: UserData) => {
-  const user = getCurrentUser();
-  const userRef = doc(db, 'users', user.uid).withConverter(
-    universalConverter<UserModelData>()
-  );
-
+  const userRef = getUserRef();
   const timestamp = new Date();
   timestamp.setHours(0, 0, 0, 0);
   const timestampKey = timestamp.toLocaleDateString('en-GB', {
@@ -58,10 +56,7 @@ export const updateUserData = async (data: UserData) => {
 };
 
 export const resetCurrentUserData = async () => {
-  const user = getCurrentUser();
-  const userRef = doc(db, 'users', user.uid).withConverter(
-    universalConverter<UserModelData>()
-  );
+  const userRef = getUserRef();
   const timestamp = new Date();
   timestamp.setHours(0, 0, 0, 0);
 
