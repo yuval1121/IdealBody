@@ -6,7 +6,7 @@ type cardText = [[string, string], [string, string]?];
 interface Props {
   header: string;
   texts: cardText;
-  buttons: () => JSX.Element;
+  buttons: JSX.Element;
 }
 
 const InfoView = ({ header, texts, buttons }: Props) => {
@@ -28,7 +28,7 @@ const InfoView = ({ header, texts, buttons }: Props) => {
         )}
       </View>
 
-      <View style={styles.buttonContainer}>{buttons()}</View>
+      <View style={styles.buttonContainer}>{buttons}</View>
     </Surface>
   );
 };

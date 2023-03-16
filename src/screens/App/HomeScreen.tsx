@@ -1,24 +1,25 @@
-import { doc, onSnapshot } from 'firebase/firestore';
+import { onSnapshot } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button } from 'react-native-paper';
-import { UserData, UserModelData } from '../../api/user/types';
+import { getUserRef } from '../../api/user';
+import { UserData } from '../../api/user/types';
+import InfoGraph from '../../components/Elements/InfoGraph';
 import InfoView from '../../components/Elements/InfoView';
 import Spinner from '../../components/Elements/Spinner';
-import { db } from '../../config/firebase';
-import { getCurrentUser } from '../../utils/auth';
-import universalConverter from '../../utils/converter';
 
 const HomeScreen = () => {
   const [userData, setUserData] = useState<UserData>();
+  const [showGraph, setShowGraph] = useState(false);
+
+  const handleGraph = () => {
+    setShowGraph(prev => !prev);
+  };
 
   useEffect(() => {
     try {
-      const user = getCurrentUser();
-      const docRef = doc(db, 'users', user.uid).withConverter(
-        universalConverter<UserModelData>()
-      );
-      const unsub = onSnapshot(docRef, doc => {
+      const userRef = getUserRef();
+      const unsub = onSnapshot(userRef, doc => {
         setUserData(doc.data()?.current);
       });
 
@@ -38,29 +39,32 @@ const HomeScreen = () => {
           ['Weight', `${userData.weight}kgs`],
           ['BMI', `${userData.BMI}`],
         ]}
-        buttons={() => {
-          return (
-            <>
-              <Button mode="contained">Graph</Button>
-              <Button>Record</Button>
-            </>
-          );
-        }}
+        buttons={
+          <>
+            <Button mode="contained" onPress={handleGraph}>
+              Graph
+            </Button>
+            <Button>Record</Button>
+          </>
+        }
       />
+
+      {showGraph && <InfoGraph />}
+
       <InfoView
         header="Water"
         texts={[['Glasses', `${userData.water}`]]}
-        buttons={() => <Button>Record</Button>}
+        buttons={<Button>Record</Button>}
       />
       <InfoView
         header="Calories"
         texts={[['Intake', `${userData.caloriesIn}cal`]]}
-        buttons={() => <Button>Record</Button>}
+        buttons={<Button>Record</Button>}
       />
       <InfoView
         header="Exercise"
         texts={[['Calories Burned', `${userData.caloriesOut}cal`]]}
-        buttons={() => <Button>Record</Button>}
+        buttons={<Button>Record</Button>}
       />
     </View>
   );
@@ -72,7 +76,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    rowGap: 60,
+    rowGap: 40,
     marginVertical: '15%',
   },
 });
