@@ -1,7 +1,8 @@
-import { StyleSheet, useWindowDimensions, View } from 'react-native';
+import { StyleSheet, useWindowDimensions } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
 import { ChartConfig } from 'react-native-chart-kit/dist/HelperTypes';
-import { useTheme } from 'react-native-paper';
+import { Surface, useTheme } from 'react-native-paper';
+import { getLast6DaysLabels } from '../../utils/dates';
 
 type chartConfigColor = ChartConfig['color'];
 
@@ -11,12 +12,13 @@ const InfoGraph = () => {
 
   const chartColors: chartConfigColor = (opacity = 1) =>
     dark ? `rgba(255, 255, 255, ${opacity})` : `rgba(0, 0, 0, ${opacity})`;
+  const last6DaysLabels = getLast6DaysLabels();
 
   return (
-    <View style={styles.container}>
+    <Surface style={styles.container}>
       <LineChart
         data={{
-          labels: ['1', '2', '3', '4', '5', '6', '7'],
+          labels: last6DaysLabels,
           datasets: [
             {
               data: [60, 75, 80, 71.52, 77, 81],
@@ -49,7 +51,7 @@ const InfoGraph = () => {
           borderRadius: 16,
         }}
       />
-    </View>
+    </Surface>
   );
 };
 
@@ -58,5 +60,6 @@ export default InfoGraph;
 const styles = StyleSheet.create({
   container: {
     width: '80%',
+    borderRadius: 10,
   },
 });
