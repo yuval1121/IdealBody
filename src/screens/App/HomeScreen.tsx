@@ -2,14 +2,14 @@ import { onSnapshot } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button } from 'react-native-paper';
-import { getUserRef } from '../../api/user';
-import { UserData } from '../../api/user/types';
+import { getUserDocRef } from '../../api/user/refs';
+import { UserDocument } from '../../api/user/types';
 import InfoGraph from '../../components/Elements/InfoGraph';
 import InfoView from '../../components/Elements/InfoView';
 import Spinner from '../../components/Elements/Spinner';
 
 const HomeScreen = () => {
-  const [userData, setUserData] = useState<UserData>();
+  const [userData, setUserData] = useState<UserDocument>();
   const [showGraph, setShowGraph] = useState(false);
 
   const handleGraph = () => {
@@ -18,9 +18,9 @@ const HomeScreen = () => {
 
   useEffect(() => {
     try {
-      const userRef = getUserRef();
+      const userRef = getUserDocRef();
       const unsub = onSnapshot(userRef, doc => {
-        setUserData(doc.data()?.current);
+        setUserData(doc.data());
       });
 
       return unsub;

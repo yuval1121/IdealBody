@@ -1,6 +1,6 @@
-import { getAuth, User } from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 
-export const getCurrentUser = (): User => {
+export const getCurrentUser = () => {
   const { currentUser } = getAuth();
 
   if (!currentUser) {

@@ -1,4 +1,4 @@
-export interface UserData {
+export interface UserDocument {
   weight: number;
   height: number;
   water: number;
@@ -6,9 +6,4 @@ export interface UserData {
   caloriesOut: number;
   BMI: number;
   timestamp?: Date;
-}
-
-export interface UserModelData {
-  current: UserData;
-  DataHistory: Record<string, UserData>;
 }

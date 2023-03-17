@@ -38,7 +38,7 @@ const DataScreen = () => {
         water: 2,
         caloriesIn: 1884,
         caloriesOut: 664,
-        BMI: calculateBMI(weight, height),
+        BMI: calculateBMI(height, weight),
       });
     } catch (e) {
       console.log(e);
