@@ -17,13 +17,6 @@ const InfoGraph = () => {
   const { height, width } = useWindowDimensions();
   const { colors, dark } = useTheme();
 
-  const last6DaysLabels = last6Days.map(doc =>
-    dayjs(doc.timestamp.toDate()).format('ddd')
-  );
-  const last6DaysData = last6Days.map(doc => doc.weight);
-  const chartColors: ChartConfig['color'] = (opacity = 1) =>
-    dark ? `rgba(255, 255, 255, ${opacity})` : `rgba(0, 0, 0, ${opacity})`;
-
   useEffect(() => {
     try {
       const timestamp = getTodaysTimestamp();
@@ -39,6 +32,13 @@ const InfoGraph = () => {
       console.log(e);
     }
   }, []);
+
+  const last6DaysLabels = last6Days.map(doc =>
+    dayjs(doc.timestamp.toDate()).format('ddd')
+  );
+  const last6DaysData = last6Days.map(doc => doc.weight);
+  const chartColors: ChartConfig['color'] = (opacity = 1) =>
+    dark ? `rgba(255, 255, 255, ${opacity})` : `rgba(0, 0, 0, ${opacity})`;
 
   if (last6Days.length === 0) {
     return (

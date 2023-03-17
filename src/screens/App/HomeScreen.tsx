@@ -12,10 +12,6 @@ const HomeScreen = () => {
   const [userData, setUserData] = useState<UserDocument>();
   const [showGraph, setShowGraph] = useState(false);
 
-  const handleGraph = () => {
-    setShowGraph(prev => !prev);
-  };
-
   useEffect(() => {
     try {
       const userRef = getUserDocRef();
@@ -28,6 +24,10 @@ const HomeScreen = () => {
       console.log(e);
     }
   }, []);
+
+  const handleGraph = () => {
+    setShowGraph(prev => !prev);
+  };
 
   if (!userData) return <Spinner />;
 
