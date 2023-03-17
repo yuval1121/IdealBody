@@ -1,6 +1,6 @@
 import { getDoc, updateDoc } from '@firebase/firestore';
 import { setDoc } from 'firebase/firestore';
-import { getTodaysTimeStamp } from '../../utils/dates';
+import { getTodaysTimestamp } from '../../utils/dates';
 import { upsertUserHistoryData } from './dataHistory';
 import { getUserDocRef } from './refs';
 import { UserDocument } from './types';
@@ -46,7 +46,7 @@ export const updateUserData = async (data: UserDocument) => {
 
 export const resetCurrentUserData = async () => {
   const userRef = getUserDocRef();
-  const timestamp = getTodaysTimeStamp();
+  const timestamp = getTodaysTimestamp();
 
   await updateDoc(userRef, {
     water: 0,

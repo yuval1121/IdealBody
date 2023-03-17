@@ -15,7 +15,7 @@ import { createUser } from '../../api/auth';
 import { createUserData } from '../../api/user';
 import { TextInput } from '../../components/Form/TextInput';
 import { RegisterScreenProp } from '../../navigation/Auth/types';
-import { getTodaysTimeStamp } from '../../utils/dates';
+import { getTodaysTimestamp } from '../../utils/dates';
 
 const schema = z.object({
   name: z.string().min(1),
@@ -40,7 +40,7 @@ const RegisterScreen = () => {
 
   const handleRegister: SubmitHandler<Inputs> = async ({ email, password }) => {
     try {
-      const timestamp = getTodaysTimeStamp();
+      const timestamp = getTodaysTimestamp();
 
       await createUser({ email, password });
       await createUserData({
