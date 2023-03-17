@@ -8,6 +8,7 @@ import { Surface, useTheme } from 'react-native-paper';
 import { getLast6Days } from '../../api/user/dataHistory';
 import { getDataHistoryDocRef } from '../../api/user/dataHistory/refs';
 import { UserDocument } from '../../api/user/types';
+import { getTodaysTimeStamp } from '../../utils/dates';
 import Spinner from './Spinner';
 
 const InfoGraph = () => {
@@ -24,8 +25,7 @@ const InfoGraph = () => {
     dark ? `rgba(255, 255, 255, ${opacity})` : `rgba(0, 0, 0, ${opacity})`;
 
   useEffect(() => {
-    const timestamp = new Date();
-    timestamp.setHours(0, 0, 0, 0);
+    const timestamp = getTodaysTimeStamp();
 
     try {
       const dataRef = getDataHistoryDocRef(Timestamp.fromDate(timestamp));

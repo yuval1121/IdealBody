@@ -8,6 +8,7 @@ import { z } from 'zod';
 import { updateUserData } from '../../api/user';
 import { TextInput } from '../../components/Form/TextInput';
 import { calculateBMI } from '../../utils/calculations';
+import { getTodaysTimeStamp } from '../../utils/dates';
 
 const schema = z.object({
   height: z.preprocess(arg => {
@@ -33,8 +34,7 @@ const DataScreen = () => {
 
   const saveHandler: SubmitHandler<Inputs> = async ({ weight, height }) => {
     try {
-      const timestamp = new Date();
-      timestamp.setHours(0, 0, 0, 0);
+      const timestamp = getTodaysTimeStamp();
 
       await updateUserData({
         weight,
