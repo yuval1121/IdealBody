@@ -5,5 +5,5 @@ export interface UserDocument {
   caloriesIn: number;
   caloriesOut: number;
   BMI: number;
-  timestamp?: Date;
+  timestamp: Date;
 }

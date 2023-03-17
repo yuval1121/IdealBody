@@ -32,13 +32,17 @@ const DataScreen = () => {
 
   const saveHandler: SubmitHandler<Inputs> = async ({ weight, height }) => {
     try {
+      const timestamp = new Date();
+      timestamp.setHours(0, 0, 0, 0);
+
       await updateUserData({
         weight,
         height,
+        BMI: calculateBMI(height, weight),
         water: 2,
         caloriesIn: 1884,
         caloriesOut: 664,
-        BMI: calculateBMI(height, weight),
+        timestamp,
       });
     } catch (e) {
       console.log(e);
