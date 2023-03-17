@@ -1,10 +1,12 @@
 import dayjs from 'dayjs';
+import { onSnapshot, Timestamp } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
 import { ChartConfig } from 'react-native-chart-kit/dist/HelperTypes';
 import { Surface, useTheme } from 'react-native-paper';
 import { getLast6Days } from '../../api/user/dataHistory';
+import { getDataHistoryDocRef } from '../../api/user/dataHistory/refs';
 import { UserDocument } from '../../api/user/types';
 import Spinner from './Spinner';
 
@@ -24,9 +26,19 @@ const InfoGraph = () => {
   useEffect(() => {
     const timestamp = new Date();
     timestamp.setHours(0, 0, 0, 0);
-    getLast6Days(timestamp)
-      .then(data => setLast6Days(data))
-      .catch(e => console.log(e));
+
+    try {
+      const dataRef = getDataHistoryDocRef(Timestamp.fromDate(timestamp));
+      const unsub = onSnapshot(dataRef, () => {
+        getLast6Days(timestamp)
+          .then(data => setLast6Days(data))
+          .catch(e => console.log(e));
+      });
+
+      return unsub;
+    } catch (e) {
+      console.log(e);
+    }
   }, []);
 
   if (last6Days.length === 0) {
