@@ -25,9 +25,8 @@ const InfoGraph = () => {
     dark ? `rgba(255, 255, 255, ${opacity})` : `rgba(0, 0, 0, ${opacity})`;
 
   useEffect(() => {
-    const timestamp = getTodaysTimestamp();
-
     try {
+      const timestamp = getTodaysTimestamp();
       const dataRef = getDataHistoryDocRef(Timestamp.fromDate(timestamp));
       const unsub = onSnapshot(dataRef, () => {
         getLast6Days(timestamp)
