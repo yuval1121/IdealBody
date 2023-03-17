@@ -4,13 +4,11 @@ import { ChartConfig } from 'react-native-chart-kit/dist/HelperTypes';
 import { Surface, useTheme } from 'react-native-paper';
 import { getLast6DaysLabels } from '../../utils/dates';
 
-type chartConfigColor = ChartConfig['color'];
-
 const InfoGraph = () => {
   const { height, width } = useWindowDimensions();
   const { colors, dark } = useTheme();
 
-  const chartColors: chartConfigColor = (opacity = 1) =>
+  const chartColors: ChartConfig['color'] = (opacity = 1) =>
     dark ? `rgba(255, 255, 255, ${opacity})` : `rgba(0, 0, 0, ${opacity})`;
   const last6DaysLabels = getLast6DaysLabels();
 
