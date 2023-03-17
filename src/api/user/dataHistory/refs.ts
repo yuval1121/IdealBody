@@ -1,4 +1,4 @@
-import { collection, doc } from 'firebase/firestore';
+import { collection, doc, Timestamp } from 'firebase/firestore';
 import { db } from '../../../config/firebase';
 import { getCurrentUser } from '../../../utils/auth';
 import universalConverter from '../../../utils/converter';
@@ -15,9 +15,10 @@ export const getDataHistoryCollectionRef = () => {
   return dataHistoryCollectionRef;
 };
 
-export const getDataHistoryDocRef = (timestamp: Date) => {
+export const getDataHistoryDocRef = (timestamp: Timestamp) => {
   const user = getCurrentUser();
-  const timestampKey = timestamp.toLocaleDateString('en-GB', {
+
+  const timestampKey = timestamp.toDate().toLocaleDateString('en-GB', {
     weekday: 'long',
     year: 'numeric',
     month: 'long',

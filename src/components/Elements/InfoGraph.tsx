@@ -1,16 +1,41 @@
-import { StyleSheet, useWindowDimensions } from 'react-native';
+import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
+import { StyleSheet, useWindowDimensions, View } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
 import { ChartConfig } from 'react-native-chart-kit/dist/HelperTypes';
 import { Surface, useTheme } from 'react-native-paper';
-import { getLast6DaysLabels } from '../../utils/dates';
+import { getLast6Days } from '../../api/user/dataHistory';
+import { UserDocument } from '../../api/user/types';
+import Spinner from './Spinner';
 
 const InfoGraph = () => {
+  const [last6Days, setLast6Days] = useState<UserDocument[]>([]);
+
   const { height, width } = useWindowDimensions();
   const { colors, dark } = useTheme();
 
+  const last6DaysLabels = last6Days.map(doc =>
+    dayjs(doc.timestamp.toDate()).format('ddd')
+  );
+  const last6DaysData = last6Days.map(doc => doc.weight);
   const chartColors: ChartConfig['color'] = (opacity = 1) =>
     dark ? `rgba(255, 255, 255, ${opacity})` : `rgba(0, 0, 0, ${opacity})`;
-  const last6DaysLabels = getLast6DaysLabels();
+
+  useEffect(() => {
+    const timestamp = new Date();
+    timestamp.setHours(0, 0, 0, 0);
+    getLast6Days(timestamp)
+      .then(data => setLast6Days(data))
+      .catch(e => console.log(e));
+  }, []);
+
+  if (last6Days.length === 0) {
+    return (
+      <View>
+        <Spinner />
+      </View>
+    );
+  }
 
   return (
     <Surface style={styles.container}>
@@ -19,7 +44,7 @@ const InfoGraph = () => {
           labels: last6DaysLabels,
           datasets: [
             {
-              data: [60, 75, 80, 71.52, 77, 81],
+              data: last6DaysData,
             },
           ],
         }}
