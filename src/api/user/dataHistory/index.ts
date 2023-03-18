@@ -4,6 +4,7 @@ import {
   limit,
   query,
   setDoc,
+  Timestamp,
   updateDoc,
   where,
 } from 'firebase/firestore';
@@ -26,9 +27,9 @@ export const upsertUserHistoryData = async (data: UserDocument) => {
   }
 };
 
-export const getLast6Days = async (timestamp: Date) => {
+export const getLast6Days = async (timestamp: Timestamp) => {
   const collectionRef = getDataHistoryCollectionRef();
-  const startDate = dayjs().subtract(6, 'd').toDate();
+  const startDate = Timestamp.fromDate(dayjs().subtract(6, 'd').toDate());
 
   const q = query(
     collectionRef,

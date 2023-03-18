@@ -1,6 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigation } from '@react-navigation/native';
-import { Timestamp } from 'firebase/firestore';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { StyleSheet, View } from 'react-native';
@@ -50,7 +49,7 @@ const RegisterScreen = () => {
         water: 0,
         caloriesIn: 0,
         caloriesOut: 0,
-        timestamp: Timestamp.fromDate(timestamp),
+        timestamp,
       });
       navigator.navigate('Login');
     } catch (error) {

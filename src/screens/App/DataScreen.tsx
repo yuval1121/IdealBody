@@ -1,5 +1,4 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Timestamp } from 'firebase/firestore';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
@@ -43,7 +42,7 @@ const DataScreen = () => {
         water: 2,
         caloriesIn: 1884,
         caloriesOut: 664,
-        timestamp: Timestamp.fromDate(timestamp),
+        timestamp,
       });
     } catch (e) {
       console.log(e);

@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { onSnapshot, Timestamp } from 'firebase/firestore';
+import { onSnapshot } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
@@ -20,7 +20,7 @@ const InfoGraph = () => {
   useEffect(() => {
     try {
       const timestamp = getTodaysTimestamp();
-      const dataRef = getDataHistoryDocRef(Timestamp.fromDate(timestamp));
+      const dataRef = getDataHistoryDocRef(timestamp);
       const unsub = onSnapshot(dataRef, () => {
         getLast6Days(timestamp)
           .then(data => setLast6Days(data))
