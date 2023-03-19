@@ -38,7 +38,9 @@ export const createUserData = async ({
   });
 };
 
-export const updateUserData = async (data: UserDocument) => {
+export const updateUserData = async (
+  data: Partial<UserDocument> & Pick<UserDocument, 'timestamp'>
+) => {
   const userRef = getUserDocRef();
   await updateDoc(userRef, data);
   await upsertUserHistoryData(data);

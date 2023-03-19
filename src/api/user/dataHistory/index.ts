@@ -11,7 +11,9 @@ import {
 import { UserDocument } from '../types';
 import { getDataHistoryCollectionRef, getDataHistoryDocRef } from './refs';
 
-export const upsertUserHistoryData = async (data: UserDocument) => {
+export const upsertUserHistoryData = async (
+  data: Partial<UserDocument> & Pick<UserDocument, 'timestamp'>
+) => {
   const collectionRef = getDataHistoryCollectionRef();
   const docRef = getDataHistoryDocRef(data.timestamp);
 
