@@ -24,7 +24,6 @@ const firebaseConfig: FirebaseOptions = {
   appId: APPID,
 };
 
-// Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 export const db = initializeFirestore(app, { ignoreUndefinedProperties: true });
 export const auth = initializeAuth(app, {
