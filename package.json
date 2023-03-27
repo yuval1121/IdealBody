@@ -13,7 +13,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "7.40.0",
-    "react-native": "0.71.3",
+    "react-native": "0.71.4",
     "react-native-chart-kit": "6.12.0",
     "react-native-dotenv": "3.4.6",
     "react-native-paper": "5.4.1",
