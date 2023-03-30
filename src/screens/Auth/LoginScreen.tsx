@@ -74,7 +74,10 @@ const LoginScreen = () => {
               }
             />
 
-            <Button uppercase={false} style={styles.cardButton}>
+            <Button
+              onPress={() => navigation.navigate('Recover')}
+              style={styles.cardButton}
+            >
               Forgot email/password
             </Button>
             <Button

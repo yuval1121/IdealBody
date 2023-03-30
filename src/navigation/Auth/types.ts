@@ -4,6 +4,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 export type AuthStackNavigatorParamList = {
   Login: undefined;
   Register: undefined;
+  Recover: undefined;
 };
 
 export type LoginScreenProp = NativeStackNavigationProp<
