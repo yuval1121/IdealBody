@@ -7,7 +7,9 @@ export function getTodaysTimestamp(firestore = true) {
   const timestamp = new Date();
   timestamp.setHours(0, 0, 0, 0);
 
-  if (firestore) return Timestamp.fromDate(timestamp);
+  if (firestore) {
+    return Timestamp.fromDate(timestamp);
+  }
 
   return timestamp;
 }

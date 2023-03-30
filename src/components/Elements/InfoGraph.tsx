@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { StyleSheet, useWindowDimensions, View } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
 import { ChartConfig } from 'react-native-chart-kit/dist/HelperTypes';
-import { Surface, useTheme } from 'react-native-paper';
+import { Surface, Text, useTheme } from 'react-native-paper';
 import { getLast6Days } from '../../api/user/dataHistory';
 import { getDataHistoryDocRef } from '../../api/user/dataHistory/refs';
 import { UserDocument } from '../../api/user/types';
@@ -12,7 +12,8 @@ import { getTodaysTimestamp } from '../../utils/dates';
 import Spinner from './Spinner';
 
 const InfoGraph = () => {
-  const [last6Days, setLast6Days] = useState<UserDocument[]>([]);
+  // Default array is set to undefined because the chart package crashes if it receives an empty array
+  const [last6Days, setLast6Days] = useState<UserDocument[]>();
 
   const { height, width } = useWindowDimensions();
   const { colors, dark } = useTheme();
@@ -33,6 +34,14 @@ const InfoGraph = () => {
     }
   }, []);
 
+  if (!last6Days) {
+    return (
+      <View>
+        <Spinner />
+      </View>
+    );
+  }
+
   const last6DaysLabels = last6Days.map(doc =>
     dayjs(doc.timestamp.toDate()).format('ddd')
   );
@@ -42,9 +51,17 @@ const InfoGraph = () => {
 
   if (last6Days.length === 0) {
     return (
-      <View>
-        <Spinner />
-      </View>
+      <Surface
+        style={[
+          styles.emptyGraph,
+          {
+            width: width * 0.8,
+            height: height * 0.25,
+          },
+        ]}
+      >
+        <Text>No Data available</Text>
+      </Surface>
     );
   }
 
@@ -95,5 +112,9 @@ const styles = StyleSheet.create({
   container: {
     width: '80%',
     borderRadius: 10,
+  },
+  emptyGraph: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
