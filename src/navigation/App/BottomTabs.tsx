@@ -5,14 +5,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { getAuth } from 'firebase/auth';
 import { IconButton, Tooltip } from 'react-native-paper';
 import HomeScreen from '../../screens/App/HomeScreen';
-import {
-  default as CalculatorScreen,
-  default as RecipesScreen,
-} from '../../screens/App/RecipesScreen';
-import {
-  default as DataScreen,
-  default as WorkoutScreen,
-} from '../../screens/App/WorkoutScreen';
+import { default as RecipesScreen } from '../../screens/App/RecipesScreen';
+import { default as WorkoutScreen } from '../../screens/App/WorkoutScreen';
 
 const Tab = createBottomTabNavigator();
 
