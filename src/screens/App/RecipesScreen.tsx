@@ -18,7 +18,7 @@ const schema = z.object({
 
 type Inputs = z.infer<typeof schema>;
 
-const CalculatorScreen = () => {
+const RecipesScreen = () => {
   const [BMI, setBMI] = useState<number | null>(null);
   const { control, handleSubmit, formState } = useForm<Inputs>({
     resolver: zodResolver(schema),
@@ -67,7 +67,7 @@ const CalculatorScreen = () => {
   );
 };
 
-export default CalculatorScreen;
+export default RecipesScreen;
 
 const styles = StyleSheet.create({
   container: {

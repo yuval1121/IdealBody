@@ -20,7 +20,7 @@ const schema = z.object({
 
 type Inputs = z.infer<typeof schema>;
 
-const DataScreen = () => {
+const WorkoutScreen = () => {
   const [visible, setVisible] = useState(false);
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
@@ -80,7 +80,7 @@ const DataScreen = () => {
   );
 };
 
-export default DataScreen;
+export default WorkoutScreen;
 
 const styles = StyleSheet.create({
   container: {

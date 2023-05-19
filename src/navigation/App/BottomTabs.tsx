@@ -1,10 +1,18 @@
+import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { getAuth } from 'firebase/auth';
 import { IconButton, Tooltip } from 'react-native-paper';
-import CalculatorScreen from '../../screens/App/CalculatorScreen';
-import DataScreen from '../../screens/App/DataScreen';
 import HomeScreen from '../../screens/App/HomeScreen';
+import {
+  default as CalculatorScreen,
+  default as RecipesScreen,
+} from '../../screens/App/RecipesScreen';
+import {
+  default as DataScreen,
+  default as WorkoutScreen,
+} from '../../screens/App/WorkoutScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -41,23 +49,23 @@ const BottomTabs = () => {
         }}
       />
       <Tab.Screen
-        name="Add"
-        component={DataScreen}
+        name="Workouts"
+        component={WorkoutScreen}
         options={{
-          tabBarLabel: 'Add',
+          tabBarLabel: 'Workouts',
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="add" color={color} size={size} />
+            <MaterialCommunityIcons name="arm-flex" size={size} color={color} />
           ),
         }}
       />
 
       <Tab.Screen
-        name="Calculator"
-        component={CalculatorScreen}
+        name="Recipes"
+        component={RecipesScreen}
         options={{
-          tabBarLabel: 'Calculator',
+          tabBarLabel: 'Recipes',
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="calculator" color={color} size={size} />
+            <MaterialIcons name="food-bank" size={size} color={color} />
           ),
         }}
       />

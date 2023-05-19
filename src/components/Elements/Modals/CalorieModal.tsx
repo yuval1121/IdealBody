@@ -8,9 +8,15 @@ import { getTodaysTimestamp } from '../../../utils/dates';
 import { TextInput } from '../../Form/TextInput';
 
 const schema = z.object({
-  calories: z.preprocess(arg => {
+  carbs: z.preprocess(arg => {
     if (typeof arg === 'string') return parseFloat(arg);
-  }, z.number().min(1)),
+  }, z.number().min(1).max(999)),
+  proteins: z.preprocess(arg => {
+    if (typeof arg === 'string') return parseFloat(arg);
+  }, z.number().min(1).max(999)),
+  fats: z.preprocess(arg => {
+    if (typeof arg === 'string') return parseFloat(arg);
+  }, z.number().min(1).max(999)),
 });
 
 type Inputs = z.infer<typeof schema>;
@@ -27,10 +33,13 @@ const CalorieModal = ({ visible, setVisible }: Props) => {
   });
 
   const saveHandler: SubmitHandler<Inputs> = async ({
-    calories: caloriesIn,
+    carbs,
+    proteins,
+    fats,
   }) => {
     try {
       const timestamp = getTodaysTimestamp();
+      const caloriesIn = 4 * (carbs + proteins) + 9 * fats;
 
       await updateUserData({
         caloriesIn,
@@ -51,12 +60,18 @@ const CalorieModal = ({ visible, setVisible }: Props) => {
         contentContainerStyle={styles.innerModal}
       >
         <Surface style={styles.surface}>
-          <Text>Enter Current Calories</Text>
+          <Text>Enter Current Carbs</Text>
+          <TextInput keyboardType="number-pad" name="carbs" control={control} />
+
+          <Text>Enter Current Proteins</Text>
           <TextInput
             keyboardType="number-pad"
-            name="calories"
+            name="proteins"
             control={control}
           />
+
+          <Text>Enter Current Fats</Text>
+          <TextInput keyboardType="number-pad" name="fats" control={control} />
 
           <Button onPress={handleSubmit(saveHandler)}>Save</Button>
         </Surface>
