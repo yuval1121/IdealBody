@@ -38,7 +38,7 @@ export default InfoView;
 const styles = StyleSheet.create({
   container: {
     width: '80%',
-    height: '10%',
+    height: '7%',
     borderRadius: 10,
     flexDirection: 'row',
     alignItems: 'center',

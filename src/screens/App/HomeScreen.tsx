@@ -1,6 +1,6 @@
 import { onSnapshot } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, useWindowDimensions, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import { getUserDocRef } from '../../api/user/refs';
 import { UserDocument } from '../../api/user/types';
@@ -19,6 +19,7 @@ const HomeScreen = () => {
   const [showWaterModal, setShowWaterModal] = useState(false);
   const [showCalorieModal, setshowCalorieModal] = useState(false);
   const [showExerciseModal, setshowExerciseModal] = useState(false);
+  const { height } = useWindowDimensions();
 
   useEffect(() => {
     try {
@@ -40,7 +41,7 @@ const HomeScreen = () => {
   if (!userData) return <Spinner />;
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { minHeight: Math.round(height) }]}>
       <BodyCompModal
         visible={showBodyCompModal}
         setVisible={setShowBodyCompModal}
