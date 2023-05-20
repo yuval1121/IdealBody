@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { Button, Surface, Text } from 'react-native-paper';
 import { enterPrompt } from '../../api/chatgpt';
@@ -9,7 +10,18 @@ const WorkoutScreen = () => {
   const [plan, setPlan] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const fetchWorkout = async () => {
+  useEffect(() => {
+    const getPlan = async () => {
+      const plan = await AsyncStorage.getItem('WorkoutPlan');
+      if (plan) {
+        setPlan(plan);
+      }
+    };
+
+    getPlan().catch(e => console.log(e));
+  }, []);
+
+  const generateWorkout = async () => {
     try {
       setIsLoading(true);
       const userData = await getUserData();
@@ -18,11 +30,12 @@ const WorkoutScreen = () => {
         throw new Error('No user data found');
       }
 
-      const msg = `Suggest me a workout plan, I am a person that is ${userData.height} meters tall and weighs ${userData.weight} kilogramss, my BMI is ${userData.BMI}. Show only the plan and nothing more, no extra words and no notes.`;
+      const msg = `Suggest me a workout plan, I am a person that is ${userData.height} meters tall and weighs ${userData.weight} kilograms, my BMI is ${userData.BMI}. Show only the plan and nothing more, no extra words and no notes.`;
 
       const content = await enterPrompt(msg);
 
       setIsLoading(false);
+      await AsyncStorage.setItem('WorkoutPlan', content);
       setPlan(content);
     } catch (error) {
       console.log(error);
@@ -36,7 +49,7 @@ const WorkoutScreen = () => {
           {isLoading ? <Spinner /> : <Text style={styles.text}>{plan}</Text>}
         </ScrollView>
       </Surface>
-      <Button style={styles.button} onPress={fetchWorkout} mode="contained">
+      <Button style={styles.button} onPress={generateWorkout} mode="contained">
         Generate Plan
       </Button>
     </View>

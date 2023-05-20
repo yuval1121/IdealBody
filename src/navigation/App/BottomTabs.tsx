@@ -1,6 +1,7 @@
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 
 import Ionicons from '@expo/vector-icons/Ionicons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { getAuth } from 'firebase/auth';
 import { IconButton, Tooltip } from 'react-native-paper';
@@ -13,6 +14,7 @@ const Tab = createBottomTabNavigator();
 const BottomTabs = () => {
   const handleLogout = async () => {
     try {
+      await AsyncStorage.clear();
       const auth = getAuth();
       await auth.signOut();
     } catch (e) {
