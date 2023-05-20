@@ -4,4 +4,5 @@ declare module '@env' {
   export const DATABASEURL: string;
   export const MESSAGINGSENDERID: string;
   export const APPID: string;
+  export const OPENAPI_TOKEN: string;
 }

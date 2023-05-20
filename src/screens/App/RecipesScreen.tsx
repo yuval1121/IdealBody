@@ -1,87 +1,65 @@
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { StyleSheet, View } from 'react-native';
-import { Button, Card, HelperText, Text } from 'react-native-paper';
-import { z } from 'zod';
-import { TextInput } from '../../components/Form/TextInput';
-import { calculateBMI } from '../../utils/calculations';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import { Button, Surface, Text } from 'react-native-paper';
+import { enterPrompt } from '../../api/chatgpt';
+import { getUserData } from '../../api/user';
+import Spinner from '../../components/Elements/Spinner';
 
-const schema = z.object({
-  height: z.preprocess(arg => {
-    if (typeof arg === 'string') return parseFloat(arg);
-  }, z.number().min(0.5).max(2.5)),
-  weight: z.preprocess(arg => {
-    if (typeof arg === 'string') return parseFloat(arg);
-  }, z.number().min(10).max(300)),
-});
+const RecipeScreen = () => {
+  const [plan, setPlan] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-type Inputs = z.infer<typeof schema>;
+  const fetchRecipe = async () => {
+    try {
+      setIsLoading(true);
+      const userData = await getUserData();
 
-const RecipesScreen = () => {
-  const [BMI, setBMI] = useState<number | null>(null);
-  const { control, handleSubmit, formState } = useForm<Inputs>({
-    resolver: zodResolver(schema),
-  });
+      if (!userData) {
+        throw new Error('No user data found');
+      }
 
-  const handleCalculateBMI: SubmitHandler<Inputs> = ({ height, weight }) => {
-    setBMI(calculateBMI(height, weight));
+      const msg = `Suggest me a nutrition plan, I am a person that is ${userData.height} meters tall and weighs ${userData.weight} kilograms, my BMI is ${userData.BMI}. Show only the plan and nothing more, no extra words and no notes.`;
+
+      const content = await enterPrompt(msg);
+      setIsLoading(false);
+      setPlan(content);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <View style={styles.container}>
-      <Card style={styles.card}>
-        <TextInput
-          name="height"
-          control={control}
-          label="Height"
-          keyboardType="number-pad"
-          errorIcon="alert-circle"
-        />
-        <HelperText type="error" visible={Boolean(formState.errors.height)}>
-          Invalid height, Please enter your height in meters.
-        </HelperText>
-
-        <TextInput
-          name="weight"
-          control={control}
-          label="Weight"
-          keyboardType="number-pad"
-          errorIcon="alert-circle"
-        />
-        <HelperText type="error" visible={Boolean(formState.errors.weight)}>
-          Invalid weight, Please enter your weight in kgs.
-        </HelperText>
-
-        <Button
-          onPress={handleSubmit(handleCalculateBMI)}
-          style={styles.button}
-          mode="contained"
-        >
-          Calculate
-        </Button>
-
-        {BMI !== null && <Text style={styles.text}>BMI is {BMI}</Text>}
-      </Card>
+      <Surface style={styles.innerContainer}>
+        <ScrollView>
+          {isLoading ? <Spinner /> : <Text style={styles.text}>{plan}</Text>}
+        </ScrollView>
+      </Surface>
+      <Button style={styles.button} onPress={fetchRecipe} mode="contained">
+        Generate Menu
+      </Button>
     </View>
   );
 };
 
-export default RecipesScreen;
+export default RecipeScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
+    justifyContent: 'center',
   },
-  card: {
+  innerContainer: {
     width: '80%',
+    height: '80%',
+    borderRadius: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   button: {
-    width: '80%',
-    alignSelf: 'center',
-    margin: 15,
+    marginTop: 10,
   },
   text: {
     textAlign: 'center',
