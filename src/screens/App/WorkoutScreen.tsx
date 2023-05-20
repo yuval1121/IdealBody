@@ -18,9 +18,10 @@ const WorkoutScreen = () => {
         throw new Error('No user data found');
       }
 
-      const msg = `Suggest me a workout plan, I am a person that is ${userData?.height} meters tall and weighs ${userData?.weight} kilogramss, my BMI is ${userData?.BMI}. Show only the plan and nothing more, no extra words and no notes.`;
+      const msg = `Suggest me a workout plan, I am a person that is ${userData.height} meters tall and weighs ${userData.weight} kilogramss, my BMI is ${userData.BMI}. Show only the plan and nothing more, no extra words and no notes.`;
 
       const content = await enterPrompt(msg);
+
       setIsLoading(false);
       setPlan(content);
     } catch (error) {
