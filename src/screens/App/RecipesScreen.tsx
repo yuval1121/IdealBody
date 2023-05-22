@@ -45,7 +45,11 @@ const RecipeScreen = () => {
     <View style={styles.container}>
       <Surface style={styles.innerContainer}>
         <ScrollView>
-          {isLoading ? <Spinner /> : <Text style={styles.text}>{plan}</Text>}
+          {isLoading ? (
+            <Spinner centered />
+          ) : (
+            <Text style={styles.text}>{plan}</Text>
+          )}
         </ScrollView>
       </Surface>
       <Button style={styles.button} onPress={generateMenu} mode="contained">
