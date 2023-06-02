@@ -7,13 +7,15 @@ describe('API tests', () => {
     const res = await enterPrompt('Hello');
     expect(res).toBeTruthy();
   });
+  const email = `${crypto.randomUUID()}@${crypto.randomUUID()}.com`;
+  const password = crypto.randomUUID();
 
-  it('Sign in test', async () => {
+  it('Sign up test', async () => {
     const res = await fetch(
-      `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_TOKEN}`,
+      `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_TOKEN}`,
       {
         method: 'POST',
-        body: JSON.stringify({ email: 'c@c.com', password: '123456' }),
+        body: JSON.stringify({ email, password }),
       }
     );
     expect(res.ok).toBe(true);
@@ -21,11 +23,9 @@ describe('API tests', () => {
     expect(data).toHaveProperty('idToken');
   });
 
-  it('Sign up test', async () => {
-    const email = `${crypto.randomUUID()}@${crypto.randomUUID()}.com`;
-    const password = crypto.randomUUID();
+  it('Sign in test', async () => {
     const res = await fetch(
-      `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_TOKEN}`,
+      `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_TOKEN}`,
       {
         method: 'POST',
         body: JSON.stringify({ email, password }),
