@@ -8,6 +8,7 @@ interface Props {
 const Spinner = ({ centered }: Props) => {
   return (
     <ActivityIndicator
+      testID="Loading"
       size="large"
       style={centered ? styles.centered : styles.middle}
     />
