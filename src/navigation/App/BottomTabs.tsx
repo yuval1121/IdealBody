@@ -1,5 +1,4 @@
 import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
-
 import Ionicons from '@expo/vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
