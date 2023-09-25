@@ -1,3 +1,1 @@
-# IdealBody
-
-To install deps use npx expo install <package_name>
+React Native project for weight watching.
